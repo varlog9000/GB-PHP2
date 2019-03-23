@@ -6,7 +6,11 @@
  * Time: 22:42
  */
 
-class DigitalGood
+class DigitalGood extends PhysicalGood
 {
 
+    public function calculateAmount()
+    {
+        return parent::getPrice()/2** ($this->getQuantity());
+    }
 }
