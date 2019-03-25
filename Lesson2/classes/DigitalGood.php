@@ -6,6 +6,8 @@
  * Time: 22:42
  */
 
+
+// Цифровой товар, измеряется в штуках, стоимость = (цена * количество)/2
 class DigitalGood extends PhysicalGood
 {
 

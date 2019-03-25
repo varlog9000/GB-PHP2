@@ -6,6 +6,7 @@
  * Time: 22:43
  */
 
+// Физический товар, измеряется в штуках, стоимость = цена * количество
 class PhysicalGood extends Good
 {
     public function __construct($title, $description, $price)
