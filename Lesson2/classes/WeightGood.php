@@ -6,7 +6,7 @@
  * Time: 22:42
  */
 
-class WeightGood extends Good
+class WeightGood extends PhysicalGood
 {
     public function __construct($title=null, $description=null, $price=null)
 
@@ -15,8 +15,4 @@ class WeightGood extends Good
         $this->setMeasurement('кг.');
     }
 
-    public function calculateAmount()
-    {
-        return ($this->getPrice()) * ($this->getQuantity());
-    }
 }

@@ -11,6 +11,6 @@ class DigitalGood extends PhysicalGood
 
     public function calculateAmount()
     {
-        return ((parent::getPrice())/2)* ($this->getQuantity());
+        return parent::calculateAmount()/2;
     }
 }

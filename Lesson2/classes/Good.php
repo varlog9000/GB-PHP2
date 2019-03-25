@@ -12,7 +12,7 @@ abstract class Good
     private $description; // Описание
     private $measurement; //Единица измерения
     private $price; // Цена
-    private $quantity; // Количество
+    private $quantity=0; // Количество
 
     // Создаем товар с именем, описанием, ценой
     public function __construct($title = null, $description = null, $price = null)
@@ -28,15 +28,16 @@ abstract class Good
         $this->setQuantity($quantity);  // Устанавливаем количество товара
         $amount = $this->calculateAmount(); // Запускаем расчет стоимости
 
-        return "Добавлено в корзину. Товар:$this->title, цена:$this->price, количество:$this->quantity $this->measurement ,стоимость:$amount";
+        return "Добавлено в корзину. Товар: $this->title, цена: $this->price, количество: $this->quantity $this->measurement,стоимость: $amount";
     }
 
     // Выводим карточку товара
     public function viewProductCard()
     {
-        return "Товар:$this->title,<br> Описание: $this->description <br>Цена:$this->price за $this->measurement";
+        return "Товар: $this->title,<br>Описание: $this->description <br>Цена: $this->price за $this->measurement";
     }
 
+    // В потомках должен быть метод расчета стоимости товара
     abstract function calculateAmount();
 
     public function setTitle($title)
