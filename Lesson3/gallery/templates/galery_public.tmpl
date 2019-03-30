@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Image Gallery</title>
+</head>
+<body>
+<div class="header"><h1><i class="icon icon-picture"></i></i> Галерея. Фронэнд </h1></div>
+<div class="container">
+    <div class="gallery">
+
+        <ul>
+            {% for item in items %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="footer">
+        <hr>
+        <a class="switch icon icon-edit" href="admin.php"> Войти в админку</a>
+    </div>
+</div>
+</body>
+</html>
+

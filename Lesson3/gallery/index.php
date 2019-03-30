@@ -1,14 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Image Gallery</title>
-</head>
-<body>
-<div class="header"><h1><i class="icon icon-picture"></i></i> Галерея. Фронэнд </h1></div>
-<div class="container">
-    <div class="gallery">
+
 
         <?php
         include_once("configuration.php");
@@ -25,9 +15,5 @@
         }
 
         echo sqlQueryAndRenderListImage($dbLink, $table); ?>
-    </div>
-    <? include_once('footer.php'); ?>
-</div>
-</body>
-</html>
+
 
