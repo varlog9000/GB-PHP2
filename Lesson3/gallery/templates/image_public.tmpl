@@ -1,0 +1,12 @@
+<!-- begin: primary.tmpl -->
+<table>
+    <tr>
+        {% for image in images %}
+            <div class="image"><a class="pictures" rel="gallery" href="viewimage.php?id=' {{ image.id }}"><img
+                            src="{{ image.path2thumb }}"><br></a>
+                <div class="hits"><i class="icon icon-eye">{{ image.hits }}'</i></div>
+            </div>
+        {% endfor %}
+    </tr>
+</table>
+<!-- end: primary.tmpl →

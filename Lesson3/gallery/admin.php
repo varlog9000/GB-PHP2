@@ -53,18 +53,51 @@ if ($_FILES['photo']['tmp_name'] != NULL) {
     }
 }
 
+
+include 'Twig/Autoloader.php';
+Twig_Autoloader::register();
+
+try {
+    $loader = new Twig_Loader_Filesystem('templates');
+
+    $twig = new Twig_Environment($loader);
+
+    $template = $twig->loadTemplate('gallery_admin.tmpl');
+
+    $imageArray = sqlQueryAndRenderListImage($dbLink, $table); // выводим массив ассоциированных массивов
+
+    echo $template->render(array(
+        'images' => $imageArray
+    ));
+
+} catch (Exception $e) {
+    die ('ERROR: ' . $e->getMessage());
+}
+
 // Создаем функцию рендринга галереи
 function sqlQueryAndRenderListImage($dbLink, $table)
 {
     // Делаем запрос к БД показать всю таблицу с параметрами фото
     $sqlQuery = mysqli_query($dbLink, "SELECT * FROM $table");
-    $renderCode = '';
+    $renderCode = [];
     while ($fromImageDB = mysqli_fetch_array($sqlQuery)) {
         // по каждой строке таблицы генерим блок с картинкой и ее свойствами
-        $renderCode .= '<div class="image"><a class="pictures" rel="gallery" href="' . $fromImageDB['path2large'] . '"><img src="' . $fromImageDB['path2thumb'] . '"><br></a><div class="actionButton"><i class="icon icon-eye">' . $fromImageDB['hits'] . '</i> <a class="icon-ccw icon" href="?action=ccw&id=' . $fromImageDB['id'] . '"></a><a class="icon-cw icon" href="?action=cw&id=' . $fromImageDB['id'] . '"></a><a class="icon-trash icon" href="?action=delete&id=' . $fromImageDB['id'] . '"></a></div></div>';
+        $renderCode [] = $fromImageDB;
     }
     return $renderCode;
 }
+
+//function sqlQueryAndRenderListImage($dbLink, $table)
+//{
+//    // Делаем запрос к БД показать всю таблицу с параметрами фото
+//    $sqlQuery = mysqli_query($dbLink, "SELECT * FROM $table");
+//    $renderCode = [];
+//    while ($fromImageDB = mysqli_fetch_array($sqlQuery)) {
+//        // по каждой строке таблицы генерим блок с картинкой и ее свойствами
+//        $renderCode []= '<div class="image"><a class="pictures" rel="gallery" href="' . $fromImageDB['path2large'] . '"><img src="' . $fromImageDB['path2thumb'] . '"><br></a><div class="actionButton"><i class="icon icon-eye">' . $fromImageDB['hits'] . '</i> <a class="icon-ccw icon" href="?action=ccw&id=' . $fromImageDB['id'] . '"></a><a class="icon-cw icon" href="?action=cw&id=' . $fromImageDB['id'] . '"></a><a class="icon-trash icon" href="?action=delete&id=' . $fromImageDB['id'] . '"></a></div></div>';
+//    }
+//    return $renderCode;
+//}
 
 // Создаем функцию для редактирования галереи
 function actionForFiles($action, $id, $dbLink, $table)
@@ -117,6 +150,5 @@ if ($action != 'none') {
 }
 
 
-echo sqlQueryAndRenderListImage($dbLink, $table); // Рендрим галерею
-?>
+//echo sqlQueryAndRenderListImage($dbLink, $table); // Рендрим галерею
 

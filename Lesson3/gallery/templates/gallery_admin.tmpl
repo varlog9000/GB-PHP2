@@ -14,11 +14,14 @@
 <div class="container">
     <div class="gallery">
 
-        <ul>
-            {% for item in items %}
-                <li>{{ item }}</li>
+        {% for image in images %}
+            <div class="image"><a class="pictures" rel="gallery" href="{{ image.path2large }}"><img src="{{ image.path2thumb }}"><br></a>
+                <div class="actionButton"><i class="icon icon-eye">{{ image.hits }}</i>
+                    <a class="icon-ccw icon" href="?action=ccw&id={{ image.id }}"></a>
+                    <a class="icon-cw icon" href="?action=cw&id={{ image.id }}"></a>
+                    <a class="icon-trash icon" href="?action=delete&id={{ image.id }}"></a></div></div>';
+
             {% endfor %}
-        </ul>
     </div>
     <br>
     <hr>
