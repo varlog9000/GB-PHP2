@@ -64,23 +64,23 @@ try {
 
 //    isset();
 
-    isset($_GET['more']) ? $limit = (int)$_GET['more'] : $limit = null;
-    $limit += LIMIT_INCREMENT;
+
+    isset($_GET['more']) ? $_SESSION['limit'] += LIMIT_INCREMENT : $_SESSION['limit'] = LIMIT_INCREMENT;
+//    $_SESSION['limit'] += LIMIT_INCREMENT;
 
 
     // теперь получаем данные из класса PDOStatement
     $goods = [];
-    $result = $db->query("SELECT nameFull, param, price FROM $tableName LIMIT $limit");
+    $result = $db->query("SELECT nameFull, param, price FROM $tableName LIMIT " . $_SESSION['limit']);
     while ($row = $result->fetch()) {
         $goods[] = $row;
-
     }
 
 
     // Выводим все в шаблон
     echo $template->render([
         'goods' => $goods,
-        'link' => 'index.php?&more='.$limit,
+        'link' => 'index.php?&more',
     ]);
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());

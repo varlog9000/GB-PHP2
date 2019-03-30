@@ -5,15 +5,22 @@
 <body>
 <div id="page">
     <div class="goods" id="header">
-        <ol>
+        <ol id="list">
             {% for good in goods %}
                 <li>Название: {{ good.nameFull }}, ингридиенты: {{ good.param }}. Цена: {{ good.price }}</li>
             {% endfor %}
         </ol>
     </div>
     <a href="{{ link }}"><< Еще >></a>
+    <a href="" id="more"><< Еще через AJAX >></a>
     <div id="footer">
     </div>
 </div>
 </body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="">
+    $("#more").click(function () {
+        $("#list").load('generate_ajax.php');
+    });
+    </script>
 </html>
