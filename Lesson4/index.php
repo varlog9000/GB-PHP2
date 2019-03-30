@@ -1,28 +1,34 @@
 <?php
-define('DB_DRIVER','mysql');
-define('DB_HOST','localhost');
-define('DB_NAME','test');
-define('DB_USER','root');
-define('DB_PASS','');
-define('TABLE_NAME','goods');
+define('DB_DRIVER', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'catalog');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+$tableName = 'goods';
+define('LIMIT_INCREMENT', 3); // Сколько будем подгружать строк с каждым нажатием кнопки "ЕЩЕ"
 
 include 'Twig/Autoloader.php';
 Twig_Autoloader::register();
 
-try
+// Для отладки
+function debug($param)
 {
+    echo '<pre>';
+    print_r($param);
+    echo '</pre>';
+}
 
+
+try {
+    // Подключаем шаблон
     $loader = new Twig_Loader_Filesystem('templates');
-
     $twig = new Twig_Environment($loader);
-
     $template = $twig->loadTemplate('goods.tmpl');
 
 
     // соединяемся с базой данных
-
-    $connect_str = DB_DRIVER . ':host='. DB_HOST . ';dbname=' . DB_NAME;
-    $db = new PDO($connect_str,DB_USER,DB_PASS);
+    $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
+    $db = new PDO($connect_str, DB_USER, DB_PASS);
 
     // вставляем несколько строк в таблицу
 //    $rows = $db->exec("INSERT INTO `testing` VALUES
@@ -56,22 +62,26 @@ try
 //
 //        echo "SQL ошибка: " . $error_array[2] . '<br /><br />';
 
-    // теперь получаем данные из класса PDOStatement
+//    isset();
 
-    while($row = $result->fetch())
-    {
-        // в результате получаем ассоциативный массив
-        print_r($row);
+    isset($_GET['more']) ? $limit = (int)$_GET['more'] : $limit = null;
+    $limit += LIMIT_INCREMENT;
+
+
+    // теперь получаем данные из класса PDOStatement
+    $goods = [];
+    $result = $db->query("SELECT nameFull, param, price FROM $tableName LIMIT $limit");
+    while ($row = $result->fetch()) {
+        $goods[] = $row;
+
     }
 
 
-
-    echo $template->render(array (
-        'nav' => $nav,
-        'updated' => '24 Jan 2011'
-    ));
-}
-catch(PDOException $e)
-{
-    die("Error: ".$e->getMessage());
+    // Выводим все в шаблон
+    echo $template->render([
+        'goods' => $goods,
+        'link' => 'index.php?&more='.$limit,
+    ]);
+} catch (PDOException $e) {
+    die("Error: " . $e->getMessage());
 }

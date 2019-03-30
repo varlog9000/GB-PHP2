@@ -5,11 +5,14 @@
 <body>
 <div id="page">
     <div class="goods" id="header">
-        {% for good in goods %}
-        {% endfor %}
+        <ol>
+            {% for good in goods %}
+                <li>Название: {{ good.nameFull }}, ингридиенты: {{ good.param }}. Цена: {{ good.price }}</li>
+            {% endfor %}
+        </ol>
     </div>
+    <a href="{{ link }}"><< Еще >></a>
     <div id="footer">
-        {#{% include 'footer.tmpl' %}#}
     </div>
 </div>
 </body>
