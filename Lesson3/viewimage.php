@@ -18,7 +18,7 @@ try {
     die ('ERROR: ' . $e->getMessage());
 }
 
-// Создаем функцию для генерации кода просмотра фотографии
+// Создаем функцию для генерации массива данных для просмотра фотографии
 function sqlQueryViewPhotoAndIncrementHits($dbLink, $table, $id)
 {
     //  Делаем запрос, чтобы по id узнать путь к файлу и количество просомтров
@@ -59,7 +59,7 @@ function sqlQueryViewPhotoAndIncrementHits($dbLink, $table, $id)
 }
 
 
- // вызываем функцию генерации кода
+
 
 
 

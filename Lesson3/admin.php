@@ -87,6 +87,7 @@ function sqlQueryAndRenderListImage($dbLink, $table)
     return $renderCode;
 }
 
+// Старая функция генерации кода просмотра галереи
 //function sqlQueryAndRenderListImage($dbLink, $table)
 //{
 //    // Делаем запрос к БД показать всю таблицу с параметрами фото
