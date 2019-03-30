@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>View image</title>
+</head>
+<body class="body-view">
+<div class="container-media">
+    <div class="photo">
+        <img src="{{ image.name }}" class="img">
+        <div class="container-button">
+            <div class="button button__left"><i class="icon icon-eye">{{ image.hits }}</i></div>
+            <div class="button button__right"><a href="index.php"><i class="icon  icon-cancel-circled "></i></a></div>
+        </div>
+        <div class="container-prev-next"><a class="prev" href="viewimage.php?id={{ image.prevId }}"><i
+                        class="icon icon-left-open-big"></i></a><a class="next" href="viewimage.php?id={{ image.nextId }}"><i
+                        class="icon icon-right-open-big"></i></a></div>
+    </div>
+</div>
+</body>
+</html>
