@@ -31,7 +31,8 @@ try {
 
     // теперь получаем данные из класса PDOStatement
     $goods = [];
-    $result = $db->query("SELECT nameFull, param, price FROM $tableName LIMIT " . $_SESSION['limit']);
+    $SQL_Query = "SELECT nameFull, param, price FROM $tableName LIMIT ".$_SESSION['limit'];
+    $result = $db->query($SQL_Query);
     while ($row = $result->fetch()) {
         $goods[] = $row;
     }

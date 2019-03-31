@@ -5,11 +5,12 @@ include 'Twig/Autoloader.php';
 Twig_Autoloader::register();
 
 if (isset($_GET['more'])) {
-    $startLimit = $_SESSION['limit'] ;
-    $stopLimit = $startLimit + LIMIT_INCREMENT ;
+//    $startLimit = $_SESSION['limit'] ;
+//    $stopLimit = $startLimit + LIMIT_INCREMENT ;
 //    echo "$startLimit $stopLimit " . $_SESSION['limit'];
-    $_SESSION['limit'] += LIMIT_INCREMENT;
     $SQL_Query = "SELECT nameFull, param, price FROM $tableName LIMIT ".$_SESSION['limit'].','. LIMIT_INCREMENT ;
+//    echo $SQL_Query;
+    $_SESSION['limit'] += LIMIT_INCREMENT;
 //    echo " $SQL_Query";
 
     try {
