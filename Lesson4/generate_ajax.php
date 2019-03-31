@@ -30,8 +30,6 @@ if (isset($_GET['more'])) {
         while ($row = $result->fetch()) {
             $goods[] = $row;
         }
-
-
         // Выводим все в шаблон
         echo $template->render([
             'goods' => $goods,

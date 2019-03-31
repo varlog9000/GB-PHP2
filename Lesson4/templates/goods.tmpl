@@ -6,6 +6,7 @@
 <div id="page">
     <div class="goods" id="header">
         <h1>Список блюд</h1>
+        <p>Данные брались из базы магазина "роллов и суши" из примера, таблица goods</p>
         <ol id="list" class="elements">
             {% for good in goods %}
                 <li>PHP: <b>Название:</b> {{ good.nameFull }}, <b>ингридиенты:</b> {{ good.param }}. <b>Цена:</b> {{ good.price }}</li>
@@ -17,9 +18,6 @@
     <div id="footer">
     </div>
 </div>
-<div id="hidden" style="display: none;"></div>
 </body>
-
 <script src="js/script.js"></script>
-
 </html>
