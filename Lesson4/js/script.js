@@ -1,9 +1,12 @@
-var a1 = $("#list").html();
-$("#more").click(function () {
-    $("#hidden").load('generate_ajax.php', 'more');
-
-});
-$("#more").click(function () {
-    var a = $("#list").html()+$("#hidden").html();
-    $("#list").html(a);
+$(document).ready(function () {
+    $("#more").click(function () {
+        $.ajax({
+            url: "generate_ajax.php?&more",
+            cache: false,
+            type: "GET",
+            dataType: "text"
+    }).done(function( html ) {
+            $("#list").append(html);
+        });
+    });
 });

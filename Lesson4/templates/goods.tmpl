@@ -1,23 +1,25 @@
 <html>
 <head>
-    {#<link rel="stylesheet" type="text/css" href="main.css"/>#}
+    <script src="js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <div id="page">
     <div class="goods" id="header">
-        <ol id="list">
+        <h1>Список блюд</h1>
+        <ol id="list" class="elements">
             {% for good in goods %}
-                <li>Название: {{ good.nameFull }}, ингридиенты: {{ good.param }}. Цена: {{ good.price }}</li>
+                <li>PHP: <b>Название:</b> {{ good.nameFull }}, <b>ингридиенты:</b> {{ good.param }}. <b>Цена:</b> {{ good.price }}</li>
             {% endfor %}
         </ol>
     </div>
-    <a href="{{ link }}"><< Еще >></a>
-    <button id="more"><< Еще через AJAX >></button>
+    <button onclick="location.href ='{{ link }}'"><< Еще через PHP >></button>
+     <button id="more"><< Еще через AJAX >></button>
     <div id="footer">
     </div>
 </div>
 <div id="hidden" style="display: none;"></div>
 </body>
-<script src="js/jquery-3.3.1.min.js"></script>
+
 <script src="js/script.js"></script>
+
 </html>
