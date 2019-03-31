@@ -12,15 +12,12 @@
         </ol>
     </div>
     <a href="{{ link }}"><< Еще >></a>
-    <a href="" id="more"><< Еще через AJAX >></a>
+    <button id="more"><< Еще через AJAX >></button>
     <div id="footer">
     </div>
 </div>
+<div id="hidden" style="display: none;"></div>
 </body>
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="">
-    $("#more").click(function () {
-        $("#list").load('generate_ajax.php');
-    });
-    </script>
+<script src="js/script.js"></script>
 </html>
