@@ -43,7 +43,7 @@
                 </div>
             <?php endforeach; ?>
     </div>
-
+    <button onclick="location.href ='index.php?&more'"><< Еще через PHP >></button>
 
     <footer>
         <? include "../templates/footer.php"; ?>
