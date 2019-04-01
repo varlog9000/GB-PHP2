@@ -3,9 +3,11 @@ include_once "../models/Model.php";
 
 if (isset($_GET['more'])) {
 
-    $goods = getAllLimitOffset($connect, $table, $orderby = 'id');
-
     $_SESSION['limit'] += LIMIT_INCREMENT;
+
+    $goods = getAllLimitOffset($connect, 'goods', $orderby = 'id');
+
+
 
 
     if (isset($_GET['more'])) {

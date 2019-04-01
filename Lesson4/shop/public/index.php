@@ -22,8 +22,6 @@ include_once "../controllers/Product.php"; ?>
 <body>
 <main>
     <div class='goodsTable' id="list">
-        <?= $_SESSION['limit']; ?>
-
         <?php
         if (isset($goods))
             foreach ($goods as $good) : ?>

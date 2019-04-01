@@ -2,7 +2,6 @@
 require_once "../config/database.php";
 
 
-
 function getAll($connect, $table, $orderby = 'id')
 {
 //    if ($limit && !$offset) {
@@ -41,9 +40,11 @@ function getAllLimit($connect, $table, $orderby = 'id')
 //    } else {
 //        $query = "SELECT * FROM {$table} order by {$orderby} desc";
 //    }
+    $limit = $_SESSION['limit'];
+    echo " " . $_SESSION['limit'];
+    $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT {$limit}";
+    debug($query);
 
-    $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT ".$_SESSION['limit'];
-    debug($query); echo " ". $_SESSION['limit'];
     $result = mysqli_query($connect, $query);
 
     if (!$result)
@@ -62,15 +63,10 @@ function getAllLimit($connect, $table, $orderby = 'id')
 
 function getAllLimitOffset($connect, $table, $orderby = 'id')
 {
-//    if ($limit && !$offset) {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc limit {$limit}";
-//    } elseif ($limit && $offset) {
-//
-//    } else {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc";
-//    }
 
-    $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT ".$_SESSION['limit'].",". LIMIT_INCREMENT;
+    $limit = $_SESSION['limit'];
+    $increment=LIMIT_INCREMENT;
+    $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT {$limit},{$increment}";
 //    debug($query);
     $result = mysqli_query($connect, $query);
 
@@ -285,7 +281,7 @@ function addNewGood($connect)
 
 function goods_all($connect)
 {
-    $query = "SELECT * FROM goods order by id desc";
+    $query = "SELECT * FROM goods ORDER BY id DESC";
     $result = mysqli_query($connect, $query);
 
     if (!$result)
@@ -304,7 +300,7 @@ function goods_all($connect)
 
 function goods_get($connect, $id)
 {
-    $query = sprintf("SELECT * FROM goods where id=%d", (int)$id);
+    $query = sprintf("SELECT * FROM goods WHERE id=%d", (int)$id);
     $result = mysqli_query($connect, $query);
     if (!$result)
         die(mysqli_error($connect));
@@ -319,7 +315,7 @@ function goods_delete($connect, $id)
     if ($id == 0)
         return false;
 
-    $query = sprintf("DELETE FROM goods where id='%d'", $id);
+    $query = sprintf("DELETE FROM goods WHERE id='%d'", $id);
     $result = mysqli_query($connect, $query);
 
     if (!$result)
@@ -328,7 +324,7 @@ function goods_delete($connect, $id)
     return mysqli_affected_rows($connect);
 }
 
-function goods_edit($connect, $id, $nameShort, $nameFull, $price, $param, $bigPhoto, $miniPhoto, $weight, $discount,  $stickerFit, $stickerHit)
+function goods_edit($connect, $id, $nameShort, $nameFull, $price, $param, $bigPhoto, $miniPhoto, $weight, $discount, $stickerFit, $stickerHit)
 {
     $id = (int)$id;
 
@@ -379,7 +375,8 @@ function changeImage($h, $w, $src, $newsrc, $type)
 }
 
 
-function renderAllGoods($connect) {
+function renderAllGoods($connect)
+{
     $query = "SELECT * FROM goods";
     $result = mysqli_query($connect, $query);
 
@@ -396,8 +393,9 @@ function renderAllGoods($connect) {
     return $goods;
 }
 
-function renderAdminAjax ($connect) {
-	$query = "SELECT * FROM goods";
+function renderAdminAjax($connect)
+{
+    $query = "SELECT * FROM goods";
     $result = mysqli_query($connect, $query);
 
     if (!$result)
@@ -413,21 +411,22 @@ function renderAdminAjax ($connect) {
     return $goods;
 }
 
-function scanDirLoadFiles ($connect) {
+function scanDirLoadFiles($connect)
+{
 
-$images = array_slice(scandir('../public/loadFiles'), 2);
+    $images = array_slice(scandir('../public/loadFiles'), 2);
 
-foreach ($images as $image) {
-    $nameRecodRu = iconv("cp1251", "UTF-8", $image);
-    $nameFull = explode('.', $nameRecodRu)[0];
-    $fileName = translit($nameRecodRu);
-    $nameShort = explode('.', $fileName)[0];
-    $arr[] = $fileName;
+    foreach ($images as $image) {
+        $nameRecodRu = iconv("cp1251", "UTF-8", $image);
+        $nameFull = explode('.', $nameRecodRu)[0];
+        $fileName = translit($nameRecodRu);
+        $nameShort = explode('.', $fileName)[0];
+        $arr[] = $fileName;
 
-    if (copy('../public/loadFiles/' . $image, '../public/' . DIR_BIG . $fileName)) {
-        $type = explode('.', $fileName)[1];
-        changeImage(220, 117, '../public/' . DIR_BIG . $fileName, '../public/' . DIR_SMALL . $fileName, $type);
-        goods_new($connect, $nameShort, $nameFull, $price, $param, DIR_BIG . $fileName, DIR_SMALL . $fileName);
+        if (copy('../public/loadFiles/' . $image, '../public/' . DIR_BIG . $fileName)) {
+            $type = explode('.', $fileName)[1];
+            changeImage(220, 117, '../public/' . DIR_BIG . $fileName, '../public/' . DIR_SMALL . $fileName, $type);
+            goods_new($connect, $nameShort, $nameFull, $price, $param, DIR_BIG . $fileName, DIR_SMALL . $fileName);
+        }
     }
-}
 }
