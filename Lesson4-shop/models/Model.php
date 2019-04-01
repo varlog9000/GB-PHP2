@@ -4,40 +4,27 @@ require_once "../config/database.php";
 
 function getAll($connect, $table, $orderby = 'id')
 {
-
-
     $query = "SELECT * FROM {$table} order by {$orderby} desc";
-
     $result = mysqli_query($connect, $query);
-
     if (!$result)
         die(mysqli_error($connect));
-
     $n = mysqli_num_rows($result);
     $res = array();
-
     for ($i = 0; $i < $n; $i++) {
         $row = mysqli_fetch_assoc($result);
         $res[] = $row;
     }
-
     return $res;
 }
 
 
 function getAllLimit($connect, $table, $orderby = 'id')
 {
-
     $limit = $_SESSION['limit'];
-
     $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT {$limit}";
-
-
     $result = mysqli_query($connect, $query);
-
     if (!$result)
         die(mysqli_error($connect));
-
     $n = mysqli_num_rows($result);
     $res = array();
 
@@ -45,30 +32,24 @@ function getAllLimit($connect, $table, $orderby = 'id')
         $row = mysqli_fetch_assoc($result);
         $res[] = $row;
     }
-
     return $res;
 }
 // Загрузка данных для использования в AJAX подгрузки данных
 function getAllLimitOffset($connect, $table, $orderby = 'id')
 {
-
     $limit = $_SESSION['limit'];
     $increment=LIMIT_INCREMENT;
     $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT {$limit},{$increment}";
 //    debug($query);
     $result = mysqli_query($connect, $query);
-
     if (!$result)
         die(mysqli_error($connect));
-
     $n = mysqli_num_rows($result);
     $res = array();
-
     for ($i = 0; $i < $n; $i++) {
         $row = mysqli_fetch_assoc($result);
         $res[] = $row;
     }
-
     return $res;
 }
 
