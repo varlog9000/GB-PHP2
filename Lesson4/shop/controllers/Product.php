@@ -1,7 +1,9 @@
 <?php
 include_once "../models/Model.php";
 
-$goods = getAll($connect, 'goods');
+//$goods = getAll($connect, 'goods');
+$goods = getAllLimit($connect, 'goods');
+
 
 if (isset($_GET[id])) {
     $id = $_GET[id];
