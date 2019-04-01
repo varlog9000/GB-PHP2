@@ -16,7 +16,7 @@
 </head>
 <body>
 <main>
-    <div class='goodsTable'>
+    <div class='goodsTable' id="list">
         <?php
         if (isset($goods))
             foreach ($goods as $good) : ?>
@@ -44,12 +44,14 @@
             <?php endforeach; ?>
     </div>
     <button onclick="location.href ='index.php?&more'"><< Еще через PHP >></button>
-
+    <button id="more"><< Еще через AJAX >></button>
     <footer>
         <? include "../templates/footer.php"; ?>
 
     </footer>
     <script src='../js/my.js' defer></script>;
 </main>
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../js/script.js"></script>
 </body>
 </html>
