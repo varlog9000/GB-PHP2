@@ -4,13 +4,7 @@ require_once "../config/database.php";
 
 function getAll($connect, $table, $orderby = 'id')
 {
-//    if ($limit && !$offset) {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc limit {$limit}";
-//    } elseif ($limit && $offset) {
-//
-//    } else {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc";
-//    }
+
 
     $query = "SELECT * FROM {$table} order by {$orderby} desc";
 
@@ -33,17 +27,11 @@ function getAll($connect, $table, $orderby = 'id')
 
 function getAllLimit($connect, $table, $orderby = 'id')
 {
-//    if ($limit && !$offset) {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc limit {$limit}";
-//    } elseif ($limit && $offset) {
-//
-//    } else {
-//        $query = "SELECT * FROM {$table} order by {$orderby} desc";
-//    }
+
     $limit = $_SESSION['limit'];
-    echo " " . $_SESSION['limit'];
+
     $query = "SELECT * FROM {$table} order by {$orderby} desc LIMIT {$limit}";
-    debug($query);
+
 
     $result = mysqli_query($connect, $query);
 
@@ -60,7 +48,7 @@ function getAllLimit($connect, $table, $orderby = 'id')
 
     return $res;
 }
-
+// Загрузка данных для использования в AJAX подгрузки данных
 function getAllLimitOffset($connect, $table, $orderby = 'id')
 {
 
