@@ -1,9 +1,16 @@
 <?php
 require_once "../config/database.php";
 
-function getAll($connect, $table, $orderby = 'id')
+function getAll($connect, $table, $orderby = 'id', $limit = null, $offset = null)
 {
-    $query = "SELECT * FROM {$table} order by {$orderby} desc";
+    if ($limit && !$offset) {
+        $query = "SELECT * FROM {$table} order by {$orderby} desc limit {$limit}";
+    } elseif ($limit && $offset) {
+        $query = "SELECT * FROM {$table} order by {$orderby} desc limit {$limit} offset {$offset}";
+    } else {
+        $query = "SELECT * FROM {$table} order by {$orderby} desc";
+    }
+
     $result = mysqli_query($connect, $query);
 
     if (!$result)
