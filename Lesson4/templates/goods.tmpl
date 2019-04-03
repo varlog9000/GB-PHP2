@@ -1,0 +1,23 @@
+<html>
+<head>
+    <script src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="goods" id="header">
+        <h1>Список блюд</h1>
+        <p>Данные брались из базы магазина "роллов и суши" из примера, таблица goods</p>
+        <ol id="list" class="elements">
+            {% for good in goods %}
+                <li>PHP: <b>Название:</b> {{ good.nameFull }}, <b>ингридиенты:</b> {{ good.param }}. <b>Цена:</b> {{ good.price }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    <button onclick="location.href ='{{ link }}'"><< Еще через PHP >></button>
+    <button id="more"><< Еще через AJAX >></button>
+    <div id="footer">
+    </div>
+</div>
+</body>
+<script src="js/script.js"></script>
+</html>
