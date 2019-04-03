@@ -1,0 +1,1 @@
+<?php/** * Ўаблон редактора * ================ * $text - текст статьи */?><form method="post">    <input name="login" type="text"><br/>    <input type="password" name="password"><br/>    <input type="submit" value="Войти"/></form><a href="register.php">Регистрация</a>

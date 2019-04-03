@@ -1,1 +1,1 @@
-<?php/** * Øàáëîí ðåäàêòîðà * ================ * $text - òåêñò ñòàòüè */?><form method="post">	<textarea name="text"><?=$text?></textarea>	<br/>	<input type="submit" value="Ñîõðàíèòü" /></form>
+<?php/** * ÐŽÐ°Ð±Ð»Ð¾Ð½ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð° * ================ * $text - Ñ‚ÐµÐºÑÑ‚ ÑÑ‚Ð°Ñ‚ÑŒÐ¸ */?><form method="post">	<textarea name="text"><?=$text?></textarea>	<br/>	<input type="submit" value="â€”Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ" /></form>
