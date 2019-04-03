@@ -1,7 +1,1 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 03.04.2019
- * Time: 14:19
- */
+<?phpfunction __autoload($classname){	include_once("c/$classname.php");}$action = 'action_';$action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';switch ($_GET['c']){	case 'articles':		$controller = new C_Page();		break;	default:		$controller = new C_Page();}$controller->Request($action);
