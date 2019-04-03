@@ -10,7 +10,7 @@ class C_User extends C_Base
 {
     public function action_login(){
         $this->title .= '::Авторизация';
-        $text = text_get();
+        $text = Text::text_get();
         $this->content = $this->Template('v/v_index.php', array('text' => $text));
     }
 }
