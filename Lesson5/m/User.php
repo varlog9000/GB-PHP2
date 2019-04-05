@@ -12,6 +12,13 @@ class User
     protected $userName;
     protected $userId;
 
+    public function __construct()
+    {
+        $this->setLoginStatus(isset($_SESSION['loginStatus']) ? $_SESSION['loginStatus'] : null);
+        $this->setUserName(isset($_SESSION['userName']) ? $_SESSION['userName'] : null);
+        $this->setUserId(isset($_SESSION['userId']) ? $_SESSION['userId'] : null);
+    }
+
     public function getLoginStatus()
     {
         return $this->loginStatus;
@@ -44,6 +51,7 @@ class User
 
     public function login($username, $password)
     {
+
         $users = include __DIR__ . '/data/users.php';
 
         foreach ($users as $user) {
