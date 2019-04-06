@@ -59,6 +59,9 @@ class User
                 $this->setLoginStatus(true);
                 $this->setUserName($username);
                 $this->setUserId($user['id']);
+                $_SESSION['loginStatus'] = $this->getLoginStatus();
+                $_SESSION['userName'] = $this->getUserName();
+                $_SESSION['userId'] = $this->getUserId();
                 return true;
             } else return false;
         }
