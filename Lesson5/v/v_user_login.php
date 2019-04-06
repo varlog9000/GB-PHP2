@@ -1,0 +1,1 @@
+﻿<?php/** * Шаблон главной страницы * ======================= * $text - текст */?><form method="post">    <input name="login" type="text"><br/>    <input type="password" name="password"><br/>    <input type="submit" name="getLogin" value="Войти"/></form><p>Статус: <?=$text?></p>

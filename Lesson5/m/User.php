@@ -52,7 +52,7 @@ class User
     public function login($username, $password)
     {
 
-        $users = include __DIR__ . '/data/users.php';
+        $users = include __DIR__ . '/../data/users.php';
 
         foreach ($users as $user) {
             if ($user['username'] == $username && $user['password'] == $password) {
