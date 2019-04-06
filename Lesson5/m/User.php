@@ -11,6 +11,7 @@ class User
     protected $loginStatus;
     protected $userName;
     protected $userId;
+    protected $logDepth = 5; // Глубина лога
 
     public function __construct()
     {
@@ -22,6 +23,14 @@ class User
     public function getLoginStatus()
     {
         return $this->loginStatus;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLogDepth()
+    {
+        return $this->logDepth;
     }
 
     public function setLoginStatus($status)
@@ -51,27 +60,46 @@ class User
 
     public function login($username, $password)
     {
-
-        $users = include __DIR__ . '/../data/users.php';
-
-        foreach ($users as $user) {
-            if ($user['username'] == $username && $user['password'] == $password) {
-                $this->setLoginStatus(true);
-                $this->setUserName($username);
-                $this->setUserId($user['id']);
-                $_SESSION['loginStatus'] = $this->getLoginStatus();
-                $_SESSION['userName'] = $this->getUserName();
-                $_SESSION['userId'] = $this->getUserId();
-                return true;
-            } else return false;
+        if ($username == "" && $password == "") {
+            return false;
+        } else {
+            $users = include __DIR__ . '/../data/users.php';
+            foreach ($users as $user) {
+                if ($user['username'] == $username && $user['password'] == $password) {
+                    $this->setLoginStatus(true);
+                    $this->setUserName($username);
+                    $this->setUserId($user['id']);
+                    $_SESSION['loginStatus'] = $this->getLoginStatus();
+                    $_SESSION['userName'] = $this->getUserName();
+                    $_SESSION['userId'] = $this->getUserId();
+                    $_SESSION['userLog'] = [];
+                    return true;
+                }
+            }
+            return false;
         }
+    }
+
+    public function log($title)
+    {
+//        $depth = $this->getLogDepth();
+        if (count($_SESSION['userLog']) >= 5) {
+            array_shift($_SESSION['userLog']);
+        }
+
+        $_SESSION['userLog'][] = ['link' => $_SERVER['REQUEST_URI'], 'title' => $title];
+    }
+
+    public function getLog()
+    {
+
     }
 
     public function logout()
     {
-        $this->setUserId(null);
-        $this->setUserName(null);
-        $this->setLoginStatus(false);
+//        $this->setUserId(null);
+//        $this->setUserName(null);
+//        $this->setLoginStatus(false);
         session_destroy();
     }
 
