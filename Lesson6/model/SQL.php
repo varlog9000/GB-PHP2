@@ -1,6 +1,6 @@
 <?php
 	
-	include_once 'config/db.php';
+	include_once __DIR__.'/../configuration/config.default.php';
   
 	class SQL {
 		
@@ -128,4 +128,3 @@
 			return strrev(md5($name)) . md5($password);
 		}
 	}
-?>
