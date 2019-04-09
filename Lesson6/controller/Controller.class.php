@@ -8,6 +8,7 @@ class Controller
     function __construct()
     {
         $this->title = Config::get('sitename');
+//        debug($_REQUEST);
     }
 
     public function index($data) {
