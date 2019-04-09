@@ -5,7 +5,7 @@ class App
     public static function Init() 
     {
         date_default_timezone_set('Europe/Moscow');
-        db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
+//        db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
 
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
             self::web(isset($_GET['path']) ? $_GET['path'] : '');
@@ -51,7 +51,7 @@ class App
             $data = [
                 'content_data' => $controller->$methodName($_GET),
                 'title' => $controller->title,
-                'categories' => Category::getCategories(0)
+//                'categories' => Category::getCategories(0)
             ];
 
             $view = $controller->view . '/' . $methodName . '.html';

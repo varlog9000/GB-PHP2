@@ -1,8 +1,15 @@
 <?php
-$config['db_user'] = 'root';
-$config['db_password'] = '';
-$config['db_base'] = 'learn_db';
-$config['db_host'] = 'localhost';
+const DRIVER = 'mysql';
+const SERVER = 'localhost';
+const DB ='learn_db';
+const USERNAME = 'root';
+const PASSWORD = '';
+
+$config['db_driver'] = DRIVER ;
+$config['db_user'] = USERNAME;
+$config['db_password'] = PASSWORD;
+$config['db_base'] = DB;
+$config['db_host'] = SERVER;
 $config['db_charset'] = 'UTF-8';
 
 $config['path_root'] = __DIR__;

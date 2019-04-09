@@ -1,8 +1,8 @@
 <?php
 	
 	include_once __DIR__.'/../configuration/config.default.php';
-  
-	class SQL {
+
+	class Sql {
 		
 		private static $instance;
 		private $db;
@@ -10,7 +10,7 @@
 		public static function Instance() {
 			
 			if (self::$instance == null) {
-				self::$instance = new SQL();
+				self::$instance = new Sql();
 			}
 
 			return self::$instance;
@@ -125,6 +125,6 @@
 
 		public function Password ($name, $password) {
 			
-			return strrev(md5($name)) . md5($password);
+			return strrev(md5($name)) . md5($password). md5($name.$password);
 		}
 	}

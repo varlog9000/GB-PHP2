@@ -2,7 +2,7 @@
 
 class Controller
 {
-    public $view = 'admin';
+    public $view = 'index';
     public $title;
 
     function __construct()

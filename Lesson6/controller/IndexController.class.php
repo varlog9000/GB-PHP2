@@ -11,8 +11,4 @@ class IndexController extends Controller
         $this->title .= ' | Главная';
     }
 
-    public function about(){
-        $this->title .= ' | О компании';
-
-    }
 }
