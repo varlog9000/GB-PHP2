@@ -10,13 +10,13 @@ class UserController extends Controller
     {
         parent::__construct();
         $this->title .= ' | Личный кабинет';
-        $this->link = Pdo();
+//        $this->link = Db();
     }
 
 
     function index($data)
     {
-        if (!isset($_SESSION['user_id'])) {
+        if (empty($_SESSION['user_id'])) {
             header("location:index.php?path=user/login");
         }
         return [];
@@ -24,8 +24,12 @@ class UserController extends Controller
 
     public function login($data)
     {
-        if (isset($_REQUEST['login'])) {
-
+        if (isset($_REQUEST['knock-knock'])) {
+            $passHash = Sql::password($_REQUEST['login'], $_REQUEST['password']);
+            $user_id = Sql::getRow("SELECT * FROM users WHERE `user_login`='?' AND `user_password`='?'", [$_REQUEST['login'], $passHash]);
+            print_r($user_id);
+//            $_SESSION['user_id']=
+//            header("location:index.php?path=user");
         }
     }
 
@@ -33,14 +37,13 @@ class UserController extends Controller
     {
         $reg_error = '';
         if (isset($_REQUEST['reg'])) {
-            if ($_REQUEST['pass1'] == $_REQUEST['pass2']) {
-//                if ($this->link->Select('user', 'user_login', $_REQUEST['login']) == 0) {
-                if (Pdo::getRows("SELECT * FROM users WHERE user_login = ?",[$_REQUEST['login']])== 0) {
-//                    $passHash = $this->link->Password($_REQUEST['login'], $_REQUEST['pass1']);
-                    $passHash = Pdo::password($_REQUEST['login'], $_REQUEST['pass1']);
-                    $newUserId = $this->link->Insert('user', ['user_name' => $_REQUEST['user_name'], 'user_login' => $_REQUEST['login'], 'user_password' => $passHash]);
+            if ($_REQUEST['pass1'] == $_REQUEST['pass2'] && !empty($_REQUEST['pass1']) && !empty($_REQUEST['login']) && !empty($_REQUEST['user_name'])) {
+                $login = $_REQUEST['login'];
+                $answer = Sql::getRows("SELECT * FROM users WHERE user_login=?", [$login]);
+                if (empty($answer)) {
+                    $passHash = Sql::password($_REQUEST['login'], $_REQUEST['pass1']);
+                    $newUserId = Sql::insert("INSERT INTO users (user_name,user_login,user_password) VALUES (?,?,?)", [$_REQUEST['user_name'], $_REQUEST['login'], $passHash]);
                     if ($newUserId > 0) {
-                        $_SESSION['user_id'] = $newUserId;
                         header("location:index.php?path=user");
                     }
                 } else {
@@ -50,6 +53,12 @@ class UserController extends Controller
                 $reg_error = 'Введенные пароли не совпадают';
             }
         }
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        header("location:index.php?path=user");
     }
 
 }

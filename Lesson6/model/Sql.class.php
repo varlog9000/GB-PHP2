@@ -1,130 +1,126 @@
 <?php
-	
-	include_once __DIR__.'/../configuration/config.default.php';
+//немного доработал класс PDO
 
-	class Sql {
-		
-		private static $instance;
-		private $db;
-		
-		public static function Instance() {
-			
-			if (self::$instance == null) {
-				self::$instance = new Sql();
-			}
 
-			return self::$instance;
-		}
-		
-		private function __construct() {
-			
-			setlocale(LC_ALL, 'ru_RU.UTF8');
-			$this->db = new PDO(DRIVER . ':host='. SERVER . ';dbname=' . DB, USERNAME, PASSWORD);
-			$this->db->exec('SET NAMES UTF8');
-			$this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-		}
-		                            
-		public function Select($table, $where_key = false, $where_value = false, $fetchAll = false) {
-			
-			if ($where_key AND $where_value) {
-				$query = "SELECT * FROM " . $table . " WHERE " . $where_key . " = '" . $where_value . "'";
-			} else {
-				$query = "SELECT * FROM " . $table;
-			}
+class Sql
+{
 
-			$q = $this->db->prepare($query);
-			$q->execute();
-			
-			if ($q->errorCode() != PDO::ERR_NONE) {
-				$info = $q->errorInfo();
-				die($info[2]);
-			}
+    const DB_HOST = 'localhost';
+    const DB_NAME = 'learn_db';
+    const DB_USER = 'root';
+    const DB_PASS = '';
+    const DB_CHAR = 'utf8';
+    const DRIVER = 'mysql';
 
-			if ($fetchAll) {
-				return $q->fetchAll();
-			} else if ($where_key AND $where_value) {
-				return $q->fetch();
-			} else {
-				return $q->fetchAll();
-			}
-		}
+    protected static $instance = null;
 
-		//"SELECT order_id, product_id, count, title, price FROM basket AS T1 INNER JOIN products AS T2 ON T1.product_id = T2.id WHERE T1.user_id = " . $_SESSION["user_id"]
-		
-		public function Insert($table, $object) {
-			
-			$columns = array();
-			
-			foreach ($object as $key => $value) {
-			
-				$columns[] = $key;
-				$masks[] = ":$key";
-				
-				if ($value === null) {
-					$object[$key] = 'NULL';
-				}
-			}
-			
-			$columns_s = implode(',', $columns);
-			$masks_s = implode(',', $masks);
-			
-			$query = "INSERT INTO $table ($columns_s) VALUES ($masks_s)";
-			
-			$q = $this->db->prepare($query);
-			$q->execute($object);
-			
-			if ($q->errorCode() != PDO::ERR_NONE) {
-				$info = $q->errorInfo();
-				die($info[2]);
-			}
-			
-			return $this->db->lastInsertId();
-		}
-		
-		public function Update($table, $object, $where) {
-			
-			$sets = array();
-			 
-			foreach ($object as $key => $value) {
-				
-				$sets[] = "$key=:$key";
-				
-				if ($value === NULL) {
-					$object[$key]='NULL';
-				}
-			 }
-			 
-			$sets_s = implode(',',$sets);
-			$query = "UPDATE $table SET $sets_s WHERE $where";
+    private function __construct()
+    {
 
-			$q = $this->db->prepare($query);
-			$q->execute($object);
+    }
 
-			if ($q->errorCode() != PDO::ERR_NONE) {
-				$info = $q->errorInfo();
-				die($info[2]);
-			}
-			
-			return $q->rowCount();
-		}
-		
-		
-		public function Delete($table, $where) {
-			
-			$query = "DELETE FROM $table WHERE $where";
-			$q = $this->db->prepare($query);
-			$q->execute();
-			
-			if ($q->errorCode() != PDO::ERR_NONE) {
-				$info = $q->errorInfo();
-				die($info[2]);
-			}
-			
-			return $q->rowCount();
-		}
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return array
+     */
+    public static function getRows($sql, $args = [])
+    {
+        return self::sql($sql, $args)->fetchAll();
+    }
 
-		public function Password ($name, $password) {
-			
-			return strrev(md5($name)) . md5($password). md5($name.$password);
-		}
-	}
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return \PDOStatement
+     */
+    private static function sql($sql, $args = [])
+    {
+        echo "<pre>" . $sql . "</pre>";
+        print_r($args); echo "<br>";
+        $stmt = self::instance()->prepare($sql);
+        print_r($stmt);echo "<br>";
+        $stmt->execute($args);
+        return $stmt;
+    }
+
+    /**
+     *
+     * @return \PDO
+     */
+    private static function instance()
+    {
+        if (self::$instance === null) {
+            $opt = array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES => TRUE,
+            );
+            $dsn = self::DRIVER . ':host=' . self::DB_HOST . ';dbname=' . self::DB_NAME . ';charset=' . self::DB_CHAR;
+            self::$instance = new \PDO($dsn, self::DB_USER, self::DB_PASS, $opt);
+        }
+        return self::$instance;
+    }
+
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return array
+     */
+    public static function getRow($sql, $args = [])
+    {
+        print_r(self::sql($sql, $args)->fetch());
+        return self::sql($sql, $args)->fetch();
+    }
+
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return integer ID
+     */
+    public static function insert($sql, $args = [])
+    {
+        self::sql($sql, $args);
+        return self::instance()->lastInsertId();
+    }
+
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return integer affected rows
+     */
+    public static function update($sql, $args = [])
+    {
+        $stmt = self::sql($sql, $args);
+        return $stmt->rowCount();
+    }
+
+    /**
+     *
+     * @param string $sql
+     * @param array $args
+     * @return integer affected rows
+     */
+    public static function delete($sql, $args = [])
+    {
+        $stmt = self::sql($sql, $args);
+        return $stmt->rowCount();
+    }
+
+    public function password($name, $password)
+    {
+
+        return strrev(md5($name)) . md5($password) . md5($name . $password);
+    }
+
+    private function __clone()
+    {
+
+    }
+
+}

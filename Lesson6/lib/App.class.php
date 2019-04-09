@@ -10,7 +10,10 @@ class App
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
             self::web(isset($_GET['path']) ? $_GET['path'] : '');
 
+   // Отладка Вывод глобальных переменных
+
             self::debug($_REQUEST);
+            self::debug($_SESSION);
         }
     }
 	
