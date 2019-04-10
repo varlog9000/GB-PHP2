@@ -12,8 +12,8 @@ class App
 
    // Отладка Вывод глобальных переменных
 
-            self::debug($_REQUEST);
-            self::debug($_SESSION);
+          echo "<br>REQUEST:";  self::debug($_REQUEST);
+            echo "SESSION:";   self::debug($_SESSION);
         }
     }
 	

@@ -38,10 +38,10 @@ class Sql
      */
     private static function sql($sql, $args = [])
     {
-        echo "<pre>" . $sql . "</pre>";
-        print_r($args); echo "<br>";
+//        echo "<pre>" . $sql . "</pre>";
+//        print_r($args); echo "<br>";
         $stmt = self::instance()->prepare($sql);
-        print_r($stmt);echo "<br>";
+//        print_r($stmt);echo "<br>";
         $stmt->execute($args);
         return $stmt;
     }
@@ -72,7 +72,7 @@ class Sql
      */
     public static function getRow($sql, $args = [])
     {
-        print_r(self::sql($sql, $args)->fetch());
+//        print_r(self::sql($sql, $args)->fetch());
         return self::sql($sql, $args)->fetch();
     }
 
