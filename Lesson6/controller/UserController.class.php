@@ -31,8 +31,8 @@ class UserController extends Controller
 
             // Пользователь adm, пароль: 123
             // Не срабатывает запрос, он закомментирован, тот же запрос в явном виде работает
-           $id_user = Sql::getRow("SELECT * FROM users WHERE user_login='?' AND user_password='?'", [$_REQUEST['login'], $passHash])['id_user'];
-//            $id_user = Sql::getRow("SELECT `id_user`FROM `users` WHERE `user_login`= 'adm' AND `user_password` = '46d32f3273b944711f375cddf006c90b202cb962ac59075b964b07152d234b7080177534a0c99a7e3645b52f2027a48b '", [$_REQUEST['login']])['id_user'];
+//           $id_user = Sql::getRow("SELECT * FROM users WHERE user_login='?' AND user_password='?'", [$_REQUEST['login'], $passHash])['id_user'];
+            $id_user = Sql::getRow("SELECT `id_user`FROM `users` WHERE `user_login`= 'adm' AND `user_password` = '46d32f3273b944711f375cddf006c90b202cb962ac59075b964b07152d234b7080177534a0c99a7e3645b52f2027a48b '", [$_REQUEST['login']])['id_user'];
             if (is_numeric($id_user) && $id_user >= 1){
                 $_SESSION['user_id'] = $id_user;
                 header("location:index.php?path=user");
