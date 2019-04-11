@@ -54,7 +54,9 @@ class App
             $data = [
                 'content_data' => $controller->$methodName($_GET),
                 'title' => $controller->title,
+                'status_message'=> $controller->statusMessage,
 //                'categories' => Category::getCategories(0)
+
             ];
 
             $view = $controller->view . '/' . $methodName . '.html';
