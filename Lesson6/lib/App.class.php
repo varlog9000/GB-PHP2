@@ -1,8 +1,8 @@
 <?php
 
-class App 
+class App
 {
-    public static function Init() 
+    public static function Init()
     {
         date_default_timezone_set('Europe/Moscow');
 //        db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
@@ -10,21 +10,16 @@ class App
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
             self::web(isset($_GET['path']) ? $_GET['path'] : '');
 
-   // Отладка Вывод глобальных переменных
+            // Отладка Вывод глобальных переменных
 
-          echo "<br>REQUEST:";  self::debug($_REQUEST);
-            echo "SESSION:";   self::debug($_SESSION);
+            echo "<br>REQUEST:";
+            self::debug($_REQUEST);
+            echo "SESSION:";
+            self::debug($_SESSION);
         }
     }
-	
-  //http://site.ru/index.php?path=news/edit/5
 
-    public function debug($param){
-        echo "<pre>";
-        print_r($param);
-        echo "</pre>";
-    }
-
+    //http://site.ru/index.php?path=news/edit/5
 
     protected static function web($url)
     {
@@ -41,8 +36,7 @@ class App
                     $_GET['id'] = $url[2];
                 }
             }
-        }
-        else{
+        } else {
             $_GET['page'] = 'Index';
         }
 
@@ -50,12 +44,13 @@ class App
             $controllerName = ucfirst($_GET['page']) . 'Controller';//IndexController
             $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
             $controller = new $controllerName();
-            
+
             $data = [
                 'content_data' => $controller->$methodName($_GET),
                 'title' => $controller->title,
-                'status_message'=> $controller->statusMessage,
+                'status_message' => $controller->statusMessage,
 //                'categories' => Category::getCategories(0)
+                'categories' => $controller->currentCategories,
 
             ];
 
@@ -64,13 +59,20 @@ class App
                 $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
                 $twig = new Twig_Environment($loader);
                 $template = $twig->loadTemplate($view);
-                
+
 
                 echo $template->render($data);
             } else {
                 echo json_encode($data);
             }
         }
+    }
+
+    public function debug($param)
+    {
+        echo "<pre>";
+        print_r($param);
+        echo "</pre>";
     }
 
 

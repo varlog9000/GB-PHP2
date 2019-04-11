@@ -11,6 +11,7 @@ class UserController extends Controller
     {
         parent::__construct();
         $this->title .= ' | Личный кабинет';
+        new UserAuth;
 //        $this->link = Db();
     }
 

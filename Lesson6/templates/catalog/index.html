@@ -3,4 +3,9 @@
 <p>Это Магазин</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet animi consequatur eaque eius est expedita fuga,
     harum inventore ipsum iste laudantium modi mollitia nemo officiis perferendis perspiciatis quas quidem quo rem tempora tempore ullam?</p>
+
+{% for category in categories %}
+<li><a href="index.php?path=catalog/{{ category.id_category }}/">{{ category.name }}</a></li>
+{% endfor %}
+
 {% include 'footer.html' %}
