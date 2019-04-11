@@ -43,8 +43,8 @@ class UserController extends Controller
             $this->statusMessage = 'Введите имя пользователя и пароль';
 
         }
-        print_r($data);
-        return ['reg_error' => $reg_error];
+//        print_r($data);
+//        return ['reg_error' => $reg_error];
     }
 
     /**

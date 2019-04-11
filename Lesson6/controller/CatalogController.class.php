@@ -27,9 +27,9 @@ class CatalogController extends Controller
     function index($data)
     {
         $id=isset($data['id'])?$data['id']:0;
-        echo "id= $id ";
+//        echo "id= $id ";
         $this->currentCategories = $this->getCategories($id);
-        App::debug($data);
+//        App::debug($data);
         return [];
     }
 

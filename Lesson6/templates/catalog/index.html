@@ -1,11 +1,14 @@
 {% include 'header.html' %}
 <a href="index.php?path=user/logout">Выйти из личного кабинета</a>
-<p>Это Магазин</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet animi consequatur eaque eius est expedita fuga,
-    harum inventore ipsum iste laudantium modi mollitia nemo officiis perferendis perspiciatis quas quidem quo rem tempora tempore ullam?</p>
-
-{% for category in categories %}
-<li><a href="index.php?path=catalog/{{ category.id_category }}/">{{ category.name }}</a></li>
-{% endfor %}
-
+<p>Каталог товаров</p>
+<a href="index.php?path=catalog/">Вернуться в родительскую категорию</a>
+<div class="categories">
+    {% for category in categories %}
+    <div class="category">
+        <a href="index.php?path=catalog/{{ category.id_category }}/">
+            <img src="{{ category.photo }}" alt="{{ category.name }}"><br>
+            {{ category.name }}</a>
+    </div>
+    {% endfor %}
+</div>
 {% include 'footer.html' %}
