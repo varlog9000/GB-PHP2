@@ -48,10 +48,8 @@ class App
             $data = [
                 'content_data' => $controller->$methodName($_GET),
                 'title' => $controller->title,
+                'pc' => $controller->paramContainer, // Переменная в которой в виде массивов передаются необходимые парамтры для заполнения вьюшек
                 'status_message' => $controller->statusMessage,
-//                'categories' => Category::getCategories(0)
-                'categories' => $controller->currentCategories,
-
             ];
 
             $view = $controller->view . '/' . $methodName . '.html';

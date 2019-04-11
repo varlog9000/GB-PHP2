@@ -1,14 +1,24 @@
 {% include 'header.html' %}
-<a href="index.php?path=user/logout">Выйти из личного кабинета</a>
-<p>Каталог товаров</p>
-<a href="index.php?path=catalog/">Вернуться в родительскую категорию</a>
-<div class="categories">
-    {% for category in categories %}
-    <div class="category">
-        <a href="index.php?path=catalog/{{ category.id_category }}/">
-            <img src="{{ category.photo }}" alt="{{ category.name }}"><br>
-            {{ category.name }}</a>
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
+        <!--% if pc.parent_link.parent_id!=0  %-->
+        <nav class="categories-nav">
+            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в {{ pc.parent_link.name }}</a>
+        </nav>
+        <!--% endif %-->
     </div>
-    {% endfor %}
 </div>
+<div class="categories">
+    <div class="container">
+        {% for category in pc.categories %}
+        <div class="category">
+            <a href="index.php?path=catalog/{{ category.id_category }}/" class="category-link">
+                <img src="{{ category.photo }}" alt="{{ category.name }}" class="category-image"><br>
+                <span class="category-name">{{ category.name }}</span></a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% include 'footer.html' %}

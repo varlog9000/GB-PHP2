@@ -3,28 +3,28 @@
 <head>
     <link rel="stylesheet" href="css/default.css">
     <title>{{ title }}</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/category.js"></script>
 </head>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/category.js"></script>
+
 <body>
+
 <div class="header">
     <div class="container">
-
+        <a href="index.php"><img src="images/logo.png" alt="ПожИнтер" class="header-logo"></a>
+        <span class="header-"></span>
     </div>
 </div>
-<!--<ul>-->
-<!--{% for category in categories %}-->
-<!--<li>-->
-<!--<a href="/categories/?id={{ category.id_category }}" link="{{ category.id_category }}" class="category-link">{{ category.name }}</a>-->
-<!--</li>-->
-<!--{% endfor %}-->
-<!--</ul>-->
 
-<nav class="main-menu">
-    <div class="container">
-        <a href="index.php?path=catalog">Магазин</a> <a href="index.php?path=user">Личный кабинет</a>
-    </div>
-</nav>
+<div class="main-menu">
+    <ul class="container">
+        <nav class="main-menu-items">
+            <li class="main-menu-item"><a href="index.php?path=catalog">Магазин</a></li>
+            <li class="main-menu-item"><a href="index.php?path=user">Личный кабинет</a></li>
+            <li class="main-menu-item"><a href="index.php?path=user/logout">Выйти из личного кабинета</a></li>
+        </nav>
+    </ul>
+</div>
 
 

@@ -1,10 +1,14 @@
 {% include 'header.html' %}
-<h1>Авторизация</h1>
-<form action="" method="post">
-    <input type="text" name="login"> <br>
-    <input type="password" name="password"><br>
-    <input type="submit" name="knock-knock" value="Войти">
-    <div class="reg_error">{{ status_message }}</div>
-</form>
-<a href="index.php?path=user/reg">Зарегистрироваться</a>
+<div class="content">
+    <div class="container"><h1>Авторизация</h1>
+        <form action="" method="post" class="login-form">
+            <p>Введите имя пользователя и пароль</p>
+            <input type="text" name="login"> <br>
+            <input type="password" name="password"><br>
+            <input type="submit" name="knock-knock" value="Войти">
+            <div class="login-form-status">{{ status_message }}</div>
+        </form>
+        <a href="index.php?path=user/reg">Зарегистрироваться</a>
+    </div>
+</div>
 {% include 'footer.html' %}

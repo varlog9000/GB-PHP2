@@ -12,7 +12,6 @@ class UserController extends Controller
         parent::__construct();
         $this->title .= ' | Личный кабинет';
         new UserAuth;
-//        $this->link = Db();
     }
 
 
@@ -40,11 +39,7 @@ class UserController extends Controller
 
             }
         } else {
-            $this->statusMessage = 'Введите имя пользователя и пароль';
-
         }
-//        print_r($data);
-//        return ['reg_error' => $reg_error];
     }
 
     /**

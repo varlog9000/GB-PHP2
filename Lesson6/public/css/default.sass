@@ -1,17 +1,169 @@
 *
   padding: 0
   margin: 0
+  box-sizing: border-box
+
+html, body
+  height: 100%
 
 .container
+  display: flex
   width: 1000px
+  //background-color: #cccccc
+
+.header, .main-menu, .categories, .footer, .content
+  display: flex
+  width: 100%
+
+.content
+  width: 100%
+  justify-content: center
+  .container
+    display: block
+    //flex-wrap: wrap
+    h1
+      width: 100%
+      display: block
+
+.login-form
+  margin: 10px 0
+
+  input
+    height: 30px
+    margin: 3px 0 3px 50px
+    padding: 0  5px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+  &-status
+    color: darkred
+
 
 .header
-  display: block
-  width: 100%
-  height: 150px
+  justify-content: center
+  height: 100px
+  &-logo
+    height: 90px
 
 .main-menu
   height: 30px
-  display: block
-  width: 100%
+  margin-bottom: 20px
+  background-color: darkred
+  justify-content: center
+  &-items
+    display: flex
+    align-items: flex-end
+    width: 100%
+    height: 100%
+  &-item
+    list-style-type: none
+    margin-right: 20px
+    //border: 1px solid #ffffff
+    border-bottom: transparent
+    a
+      display: block
+      padding-top: 7px
+      padding-right: 7px
+      padding-left: 7px
+      padding-bottom: 3px
+      border-radius: 10px 10px 0 0
+      text-decoration: none
+      font-weight: bold
+      background-color: white
+      color: rgba(0, 13, 122, 0.89)
 
+
+.categories
+  justify-content: space-around
+  margin-top: 10px
+  .container
+    justify-content: space-around
+    flex-wrap: wrap
+  &-nav
+    width: 100%
+    display: block
+
+
+.category
+  display: flex
+  width: 200px
+  height: 200px
+  justify-content: center
+  border: 1px solid #000
+  border-radius: 10px
+  &-image
+    height: 150px
+  &-name
+    display: block
+    text-decoration: none
+    text-underline: none
+  &-link
+    display: table-cell
+    margin-top: 5px
+    text-align: center
+    //justify-content: center
+
+.goods
+  display: flex
+  margin-top: 10px
+  justify-content: center
+  .container
+    display: block
+
+.good
+  display: flex
+  //border: 1px solid #000
+  padding: 5px
+  &-descr
+    margin: 0 10px
+  &-name
+    display: block
+    margin: 3px 0
+    font-weight: bold
+    text-decoration: none
+  &-image
+    max-height: 80px
+    max-width: 80px
+    margin: 5px
+  &-buy-container
+    min-width: 100px
+    margin: 5px
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    justify-items: center
+  &-price
+    text-align: center
+
+.view-good
+  &-up
+    display: flex
+    margin: 10px 0
+    justify-content: space-around
+  &-image
+    max-width: 300px
+    max-height: 300px
+  &-buy
+    margin-top: 20px
+    *
+      margin-top: 10px
+    button
+      width: 100%
+  &-descr
+    margin-top: 10px
+
+
+
+.footer
+  height: 100px
+  margin-top: 20px
+  justify-content: center
+  background-color: rgba(0, 13, 122, 0.89)
+  .container
+    flex-direction: column
+    justify-content: space-around
+  &-disclaimer
+    display: block
+    text-align: center
+    //border: 1px solid #ffffff
+    color: #FFFFFF

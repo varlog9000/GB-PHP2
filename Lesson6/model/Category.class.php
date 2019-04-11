@@ -16,4 +16,14 @@ class Category
 
     }
 
+    public function getCategory($id)
+    {
+        return Sql::getRow('SELECT * FROM `categories` WHERE `id_category`=?', [$id]);
+    }
+
+    public function getParentCategoryName($parentId){
+        return Sql::getRow('SELECT `name` FROM `categories` WHERE `id_category`=?', [$parentId])['name'];
+    }
+
+//    public function
 }
