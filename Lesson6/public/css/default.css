@@ -38,8 +38,37 @@ html, body {
 .header {
   justify-content: center;
   height: 100px; }
+  .header .container {
+    justify-content: space-between;
+    justify-items: center; }
   .header-logo {
+    margin-top: 7px;
     height: 90px; }
+    .header-logocontainer {
+      display: flex; }
+  .header-company-name {
+    display: block;
+    margin-top: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 50px; }
+  .header-cart-container {
+    width: 150px;
+    height: 80px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-items: center;
+    border: 1px solid #000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px; }
+    .header-cart-container-header {
+      display: block;
+      text-align: center; }
+    .header-cart-container-link {
+      display: block;
+      text-align: center; }
 
 .main-menu {
   height: 30px;
