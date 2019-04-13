@@ -3,15 +3,15 @@
 class UserController extends Controller
 {
     public $view = 'user';
-    public $title;
     public $link;
+    public $userAuth;
     public $statusMessage;
 
     public function __construct()
     {
         parent::__construct();
         $this->title .= ' | Личный кабинет';
-        new UserAuth;
+        $this->userAuth = new UserAuth();
     }
 
 
@@ -28,17 +28,16 @@ class UserController extends Controller
         $this->title .= ' | Авторизация';
         $reg_error = '';
         if (isset($_REQUEST['knock-knock'])) {
-            $passHash = Sql::password($_REQUEST['login'], $_REQUEST['password']);
-
-            $id_user = Sql::getRow('SELECT * FROM `users` WHERE `user_login`=? AND `user_password`=?', [$_REQUEST['login'], $passHash])['id_user'];
+            $id_user = $this->userAuth->userAuthorisation();
             if (is_numeric($id_user) && $id_user >= 1) {
                 $_SESSION['user_id'] = $id_user;
+                $this->cart->transferGoodsFromSessionToDb();
                 header("location:index.php?path=user");
             } else {
                 $this->statusMessage = 'Нет пользователя с такой комбинацией имени и пароля';
-
             }
         } else {
+            return false;
         }
     }
 
@@ -53,11 +52,8 @@ class UserController extends Controller
         /** @var TYPE_NAME $_REQUEST */
         if (isset($_REQUEST['reg'])) {
             if ($_REQUEST['pass1'] == $_REQUEST['pass2'] && !empty($_REQUEST['pass1']) && !empty($_REQUEST['login']) && !empty($_REQUEST['user_name'])) {
-                $login = $_REQUEST['login'];
-                $answer = Sql::getRows('SELECT * FROM `users` WHERE `user_login`=?', [$login]);
-                if (empty($answer)) {
-                    $passHash = Sql::password($_REQUEST['login'], $_REQUEST['pass1']);
-                    $newUserId = Sql::insert('INSERT INTO `users` (`user_name`,`user_login`,`user_password`) VALUES (?,?,?)', [$_REQUEST['user_name'], $_REQUEST['login'], $passHash]);
+                if (empty($this->userAuth->is_exist_user($_REQUEST['login']))) {
+                    $newUserId = $this->userAuth->createUser();
                     if ($newUserId > 0) {
                         header("location:index.php?path=user");
                     }
@@ -66,7 +62,7 @@ class UserController extends Controller
 //                    return ['reg_error'=> $reg_error];
                 }
             } else {
-                $this->statusMessage = 'Введенные пароли не совпадают';
+                $this->statusMessage = 'Заполните все поля: имя, логин, пароль';
 //                return ['reg_error'=> $reg_error];
             }
         }
