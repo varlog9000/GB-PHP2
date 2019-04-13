@@ -24,6 +24,7 @@ class CatalogController extends Controller
         $this->category = new Category();
         $this->goods = new Goods();
 //        $this->category = Db();
+
     }
 
 
@@ -73,8 +74,7 @@ class CatalogController extends Controller
         }
         $this->paramContainer['parent_link']['parent_id'] = $this->category->getCategory($id)['parent_id'];
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
-
-//        App::debug($this->paramContainer['goods']);
+        App::debug($_SERVER);
         return [];
 
     }
@@ -96,8 +96,7 @@ class CatalogController extends Controller
         }
         $this->paramContainer['parent_link']['parent_id'] = $this->goods->getGood($id)['id_category'];
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
-//        App::debug($this->paramContainer['good'][0]);
-//        App::debug($this->paramContainer['goods']);
+
         return [];
 
     }

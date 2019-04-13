@@ -31,7 +31,7 @@ class CartController extends Controller
 
     public function index($data)
     {
-        $this->paramContainer['h1']='Корзина';
+        $this->paramContainer['h1'] = 'Корзина';
         $this->paramContainer['cart'] = $this->cart->getGoodsListFromCart();
 
         App::debug($this->paramContainer['cart_small']);
@@ -41,7 +41,9 @@ class CartController extends Controller
     {
         $this->cart->addGoodToCart($data['id']);
         return json_encode($this->cart->getGoodsListFromCart());
-        header("location:index.php?path=cart");
+        $path_string = $_SESSION['return_string'];
+        header("location:index.php?$path_string");
+
     }
 
     public function delete($data)
