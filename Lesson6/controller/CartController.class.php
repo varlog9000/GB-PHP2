@@ -12,7 +12,7 @@ class CartController extends Controller
     public $title;
     public $category;
     public $goods;
-    public $cart;
+//    public $cart;
     public $statusMessage;
     public $currentCategories;
     public $paramContainer = [];
@@ -21,25 +21,27 @@ class CartController extends Controller
     public function __construct()
     {
         parent::__construct();
-//        $this->title .= ' | Каталог товаров';
+        $this->title .= ' | Корзина';
         $this->category = new Category();
         $this->goods = new Goods();
-        $this->cart = new Cart();
-//        $this->category = Db();
+//        $this->cart = new Cart();
+
     }
 
 
     public function index($data)
     {
-        $paramContainer['cart'] = $this->cart->getGoodsListFromCart();
+        $this->paramContainer['h1']='Корзина';
+        $this->paramContainer['cart'] = $this->cart->getGoodsListFromCart();
 
-
+        App::debug($this->paramContainer['cart_small']);
     }
 
     public function add($data)
     {
         $this->cart->addGoodToCart($data['id']);
         return json_encode($this->cart->getGoodsListFromCart());
+        header("location:index.php?path=cart");
     }
 
     public function delete($data)

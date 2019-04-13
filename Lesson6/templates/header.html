@@ -15,8 +15,16 @@
         <span class="header-company-name">Пожарный Магазин</span>
         <div class="header-cart-container">
             <h3 class="header-cart-container-header">Корзина</h3>
-            <a href="#" class="header-cart-container-link">2 товара<br>
-            Сумма: 450 руб.</a>
+            <a href="http://php2.gb/Lesson6/public/index.php?path=cart" class="header-cart-container-link">
+                {% if pc.cart_small.count > 0 %}
+                Товаров: {{ pc.cart_small.count }}<br>
+            Сумма: {{ pc.cart_small.amount }} руб.
+                {% endif %}
+                {% if pc.cart_small.count == 0 %}
+                Пока пусто
+                {% endif %}
+            </a>
+
         </div>
     </div>
 </div>

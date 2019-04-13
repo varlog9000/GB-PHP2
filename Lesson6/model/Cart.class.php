@@ -9,7 +9,6 @@
 class Cart
 {
     public $good;
-    public $varExchange = [];
 
 
     // Данный механизм позволяет для авторизованных пользователей хнатить корзину в БД, а для неавторизованных в сессии.
@@ -27,12 +26,13 @@ class Cart
 // Добавляем товар в корзину. Если товар уже есть в корзине - увеличиваем счетчик количества
     public function addGoodToCart($id)
     {
-        $this->varExchange = $this->good->getGood($id);
-
+        $varExchange = [];
+        $varExchange = $this->good->getGood($id)[0];
+        App::debug($varExchange);
         if (isset($_SESSION['user_id'])) {
             $count = Sql::getRow('SELECT * FROM `basket` WHERE `id_good`=?', [$id])['count'];
             if (empty($count)) {
-                return Sql::insert('INSERT INTO `basket` (`id_user`,`id_good`,`price`) VALUE (?,?,?)', [$_SESSION['user_id'], $id, $this->varExchange['price']]);
+                return Sql::insert('INSERT INTO `basket` (`id_user`,`id_good`,`price`) VALUE (?,?,?)', [$_SESSION['user_id'], $id, $varExchange['price']]);
             } else {
                 return Sql::update('UPDATE `basket` SET `count`=?', [++$count]);
             }
@@ -44,7 +44,7 @@ class Cart
                     return true;
                 }
             }
-            $_SESSION['cart'] = ['id_good' => $id, 'price' => $this->varExchange['price'], 'count' => 1];
+            array_push($_SESSION['cart'], ['id_good' => $id, 'name'=>$varExchange['name'], 'price' => $varExchange['price'], 'count' => 1]);
             return true;
         }
     }
@@ -70,11 +70,13 @@ class Cart
     public function getGoodsListFromCart()
     {
         if (isset($_SESSION['user_id'])) {
-            return Sql::getRows('SELECT * FROM `basket` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
+//            return Sql::getRows('SELECT * FROM `basket` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
+            return Sql::getRows('SELECT `basket`.`id_user`,`basket`.`id_good`,`basket`.`price`,`basket`.`count`,`basket`.`is_in_order`,`basket`.`id_order`,`goods`.`name`, `goods`.`photo` FROM `basket` INNER JOIN `goods` ON `basket`.`id_good`=`goods`.`id_good` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
         } else {
             return $_SESSION['cart'];
         }
     }
+
     // Переносим все данные корзины из сессии в БД
     public function transferGoodsFromSessionToDb()
     {
