@@ -40,15 +40,16 @@ class CartController extends Controller
     public function add($data)
     {
         $this->cart->addGoodToCart($data['id']);
-        return json_encode($this->cart->getGoodsListFromCart());
-        $path_string = $_SESSION['return_string'];
-        header("location:index.php?$path_string");
+//        return json_encode($this->cart->getGoodsListFromCart());
+//        $path_string = $_SESSION['return_string'];
+//        header("location:index.php?$path_string");
 
     }
 
     public function delete($data)
     {
         $this->cart->deleteGoodFromCart($data['id']);
-        return json_encode($this->cart->getParamForCardBlock());
+
+//        return json_encode($this->cart->getParamForCartBlock());
     }
 }

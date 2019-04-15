@@ -21,7 +21,7 @@
             </div>
             <div class="good-buy-container">
                 <span class="good-price" >{{ good.price }} руб.</span>
-                <button add-to-cart="{{ good.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.id_good }}'">Купить</button>
+                <button add-to-cart="{{ good.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.id_good }}&asAjax'">Купить</button>
             </div>
         </div>
         {% endfor %}

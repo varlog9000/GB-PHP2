@@ -19,7 +19,7 @@
                     <div class="view-good-buy">
                         <span class="view-good-price">Цена: {{ pc.good.0.price }} руб.</span> <br>
                         Количество: <input type="text" style="width: 40px;"><br>
-                        <button>Купить</button>
+                        <button add-to-cart="{{ good.0.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.0.id_good }}&asAjax'">Купить</button>
                     </div>
                 </div>
             </div>

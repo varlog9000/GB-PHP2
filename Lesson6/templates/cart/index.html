@@ -1,39 +1,19 @@
 {% include 'header.html' %}
+
 <div class="content">
+    <script>
+        $(function () {
+            $(".delete-good-button").click(function (e) {
+                e.preventDefault();
+                let id=
+                
+            })
+            
+        })
+    </script>
     <div class="container"><h1>{{ pc.h1 }}</h1>
-        <table>
-            <tr>
-                <th>№ п/п</th>
-                <th>Название</th>
-                <th>Цена</th>
-                <th>Количество</th>
-                <th>Стоимость</th>
-                <th>Операции</th>
-            </tr>
-            {% set number = 0  %}
-            {% set totalCount = 0  %}
-            {% set totalAmount = 0 %}
-            {% for good in pc.cart %}
-            {% set number = number + 1 %}
-            <tr>
-                <td>{{ number }}</td>
-                <td>{{ good.name }}</td>
-                <td>{{ good.price }}</td>
-                <td>{{ good.count }}</td>
-                {% set amount = good.price * good.count %}
-                <td>{{ amount }}</td>
-                <td><a href="index.php?path=cart/delete/{{ good.id_good }}"></a></td>
-            </tr>
-
-            {% set totalCount = totalCount + good.count  %}
-            {% set totalAmount = totalAmount + amount  %}
-            {% endfor %}
-            <tr>
-                <td colspan="3">Итого:</td>
-                <td>{{ totalCount }}</td>
-                <td>{{ totalAmount }}</td>
-
-            </tr>
+        <table class="cart">
+        {% include 'cart/cart.html' %}
         </table>
     </div>
 </div>

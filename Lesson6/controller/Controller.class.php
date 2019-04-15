@@ -14,7 +14,7 @@ class Controller
 
 
         $this->cart = new Cart();
-        $this->paramContainer['cart_small']= [$this->cart->getParamForCardBlock()][0];
+        $this->paramContainer['cart_small']= [$this->cart->getParamForCartBlock()][0];
 //        debug($_REQUEST);
     }
 

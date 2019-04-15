@@ -34,7 +34,7 @@ class Cart
             if (empty($count)) {
                 return Sql::insert('INSERT INTO `basket` (`id_user`,`id_good`,`price`) VALUE (?,?,?)', [$_SESSION['user_id'], $id, $varExchange['price']]);
             } else {
-                return Sql::update('UPDATE `basket` SET `count`=?', [++$count]);
+                return Sql::update('UPDATE `basket` SET `count`=? WHERE `id_good`=?', [++$count, $id]);
             }
 
         } else {
@@ -44,7 +44,7 @@ class Cart
                     return true;
                 }
             }
-            array_push($_SESSION['cart'], ['id_good' => $id, 'name'=>$varExchange['name'], 'price' => $varExchange['price'], 'count' => 1]);
+            array_push($_SESSION['cart'], ['id_good' => $id, 'name' => $varExchange['name'], 'price' => $varExchange['price'], 'count' => 1]);
             return true;
         }
     }
@@ -55,7 +55,7 @@ class Cart
     {
 //        $this->varExchange = $this->good->getGood($id);
         if (isset($_SESSION['user_id'])) {
-            return Sql::delete('DELETE FROM `basket` WHERE `id_user`=? AND `id_goods`=?', [$_SESSION['user_id'], $id]);
+            return Sql::delete('DELETE FROM `basket` WHERE `id_user`=? AND `id_good`=?', [$_SESSION['user_id'], $id]);
         } else {
             foreach ($_SESSION['cart'] as $good) {
                 if ($_SESSION['cart'][$good]['id_good'] == $id) {
@@ -67,17 +67,7 @@ class Cart
     }
 
     // Запрос всего списка товаров в корзине
-    public function getGoodsListFromCart()
-    {
-        if (isset($_SESSION['user_id'])) {
-//            return Sql::getRows('SELECT * FROM `basket` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
-            return Sql::getRows('SELECT `basket`.`id_user`,`basket`.`id_good`,`basket`.`price`,`basket`.`count`,`basket`.`is_in_order`,`basket`.`id_order`,`goods`.`name`, `goods`.`photo` FROM `basket` INNER JOIN `goods` ON `basket`.`id_good`=`goods`.`id_good` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
-        } else {
-            return $_SESSION['cart'];
-        }
-    }
 
-    // Переносим все данные корзины из сессии в БД
     public function transferGoodsFromSessionToDb()
     {
         foreach ($_SESSION['cart'] as $good) {
@@ -86,8 +76,9 @@ class Cart
         return true;
     }
 
-    // Запрос обновленной информации для отображения корзины вверху страницы.
-    public function getParamForCardBlock()
+    // Переносим все данные корзины из сессии в БД
+
+    public function getParamForCartBlock()
     {
         $count = 0;
         $amount = 0;
@@ -96,6 +87,24 @@ class Cart
             $amount += $good['price'] * $good['count'];
             $count += $good['count'];
         }
-        return ['count' => $count, 'amount' => $amount];
+        $return_array = ['count' => $count, 'amount' => $amount];
+        if (!isset($_GET['asAjax'])) {
+            return $return_array;
+        } else {
+            return json_encode($return_array);
+        }
+
+    }
+
+    // Запрос обновленной информации для отображения корзины вверху страницы.
+
+    public function getGoodsListFromCart()
+    {
+        if (isset($_SESSION['user_id'])) {
+//            return Sql::getRows('SELECT * FROM `basket` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
+            return Sql::getRows('SELECT `basket`.`id_basket`, `basket`.`id_user`,`basket`.`id_good`,`basket`.`price`,`basket`.`count`,`basket`.`is_in_order`,`basket`.`id_order`,`goods`.`name`, `goods`.`photo` FROM `basket` INNER JOIN `goods` ON `basket`.`id_good`=`goods`.`id_good` WHERE `id_user`=? AND `is_in_order`=0', [$_SESSION['user_id']]);
+        } else {
+            return $_SESSION['cart'];
+        }
     }
 }
