@@ -9,6 +9,28 @@
         <!--% endif %-->
     </div>
 </div>
+<script>
+    $(function () {
+        $(".buy-button").click(function (e) {
+            // console.log(e);
+            e.preventDefault();
+            var _this = this;
+            var id = $(_this).attr('add-to-cart');
+            $.ajax({
+                type: 'GET',
+                url: 'index.php?path=cart/add/' + id,
+                dataType: 'text',
+                success: function (answer) {
+                    $("#cart-small").html(answer);
+                },
+                error: function (answer) {
+                    alert ("Ошибка " + answer);
+                }
+            })
+        })
+
+    })
+</script>
 <div class="goods">
     <div class="container">
         {% for good in pc.goods %}
@@ -20,8 +42,8 @@
                 <p>{{ good.short_descr }}</p>
             </div>
             <div class="good-buy-container">
-                <span class="good-price" >{{ good.price }} руб.</span>
-                <button add-to-cart="{{ good.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.id_good }}&asAjax'">Купить</button>
+                <span class="good-price">{{ good.price }} руб.</span>
+                <button add-to-cart="{{ good.id_good }}" class="buy-button">Купить</button>
             </div>
         </div>
         {% endfor %}

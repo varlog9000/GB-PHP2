@@ -28,7 +28,7 @@ class Cart
     {
         $varExchange = [];
         $varExchange = $this->good->getGood($id)[0];
-        App::debug($varExchange);
+//        App::debug($varExchange);
         if (isset($_SESSION['user_id'])) {
             $count = Sql::getRow('SELECT * FROM `basket` WHERE `id_good`=?', [$id])['count'];
             if (empty($count)) {

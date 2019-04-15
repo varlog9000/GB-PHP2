@@ -74,7 +74,7 @@ class CatalogController extends Controller
         }
         $this->paramContainer['parent_link']['parent_id'] = $this->category->getCategory($id)['parent_id'];
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
-        App::debug($_SERVER);
+//        App::debug($_SERVER);
         return [];
 
     }

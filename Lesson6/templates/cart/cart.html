@@ -18,7 +18,7 @@
     <td>{{ good.count }}</td>
     {% set amount = good.price * good.count %}
     <td>{{ amount }}</td>
-    <td><a delete-id_good="{{ good.id_good }}" href="" class="delete-good-button">Удалить</a></td>
+    <td><a deleteIdGood={{ good.id_good }} href="" class="delete-good-button">Удалить</a></td>
 </tr>
 
 {% set totalCount = totalCount + good.count  %}

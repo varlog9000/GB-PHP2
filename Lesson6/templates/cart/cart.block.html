@@ -1,0 +1,10 @@
+<h3 class="header-cart-container-header">Корзина</h3>
+<a href="http://php2.gb/Lesson6/public/index.php?path=cart" class="header-cart-container-link">
+    {% if pc.cart_small.count > 0 %}
+    Товаров: {{ pc.cart_small.count }}<br>
+    Сумма: {{ pc.cart_small.amount }} руб.
+    {% endif %}
+    {% if pc.cart_small.count == 0 %}
+    Пока пусто
+    {% endif %}
+</a>

@@ -4,16 +4,34 @@
     <script>
         $(function () {
             $(".delete-good-button").click(function (e) {
+                // console.log(e);
                 e.preventDefault();
-                let id=
-                
+                var _this = this;
+                var id = $(_this).attr('deleteIdGood');
+                $.ajax({
+                    type: 'GET',
+                    url: 'index.php?path=cart/delete/' + id,
+                    dataType: 'text',
+                    success: function (answer) {
+                        $("#cart").empty();
+                        $("#cart").html(answer);
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: 'index.php?path=cart/update',
+                    dataType: 'text',
+                    success: function (answer) {
+                        $("#cart-small").empty();
+                        $("#cart-small").html(answer);
+                    }
+                })
             })
-            
         })
     </script>
     <div class="container"><h1>{{ pc.h1 }}</h1>
-        <table class="cart">
-        {% include 'cart/cart.html' %}
+        <table id="cart">
+            {% include 'cart/cart.html' %}
         </table>
     </div>
 </div>
