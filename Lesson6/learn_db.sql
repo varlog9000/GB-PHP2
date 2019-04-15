@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 12 2019 г., 02:32
+-- Время создания: Апр 15 2019 г., 11:40
 -- Версия сервера: 5.7.25
--- Версия PHP: 7.2.10
+-- Версия PHP: 7.1.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,12 +30,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `basket` (
   `id_basket` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_good` int(11) NOT NULL,
-  `price` double NOT NULL,
-  `is_in_order` tinyint(4) NOT NULL,
-  `id_order` int(11) NOT NULL
+  `id_user` int(11) DEFAULT NULL,
+  `id_good` int(11) DEFAULT NULL,
+  `count` int(11) NOT NULL DEFAULT '1',
+  `price` double DEFAULT NULL,
+  `is_in_order` tinyint(4) DEFAULT '0',
+  `id_order` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `basket`
+--
+
+INSERT INTO `basket` (`id_basket`, `id_user`, `id_good`, `count`, `price`, `is_in_order`, `id_order`) VALUES
+(1, 9, 1, 9, 450, 0, 0),
+(2, 9, 8, 9, NULL, 0, 0),
+(3, 9, 3, 9, NULL, 0, 0),
+(4, 9, 4, 9, 1980, 0, 0),
+(5, 9, 2, 9, 960, 0, 0),
+(6, 9, 4, 9, 1980, 0, 0),
+(7, 9, 5, 9, 12000, 0, 0),
+(8, 11, 7, 9, 400, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -180,7 +195,8 @@ INSERT INTO `users` (`id_user`, `user_name`, `user_login`, `user_password`, `use
 (7, 'Никита', 'admin', '3cf108a4e0a498347a5a75a792f23212378b73f38d223849ee9a19900343fe7a30213a7777106cc760c3bc4d8fa72e48', '2019-04-09 23:27:48'),
 (8, 'Валентина', 'vlt', '5b10d90161a21057df6b411bae1528c4378b73f38d223849ee9a19900343fe7a778cfa3dc57d9c174c163ace65369625', '2019-04-10 07:01:48'),
 (9, 'adm', 'adm', '46d32f3273b944711f375cddf006c90b202cb962ac59075b964b07152d234b7080177534a0c99a7e3645b52f2027a48b', '2019-04-10 08:11:43'),
-(10, 'vlt', 'vlt', '5b10d90161a21057df6b411bae1528c4202cb962ac59075b964b07152d234b704db7f2af642040109eab802746c7b7f4', '2019-04-10 20:47:44');
+(10, 'vlt', 'vlt', '5b10d90161a21057df6b411bae1528c4202cb962ac59075b964b07152d234b704db7f2af642040109eab802746c7b7f4', '2019-04-10 20:47:44'),
+(11, 'Яна', 'yana', '1520b22b5d316b55b60b7780d8e1ec1e202cb962ac59075b964b07152d234b70f120b1fbce5e71f228b8764c574455da', '2019-04-13 21:51:46');
 
 -- --------------------------------------------------------
 
@@ -268,7 +284,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
@@ -316,7 +332,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`
