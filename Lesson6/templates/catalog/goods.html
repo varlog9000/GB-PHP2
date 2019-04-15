@@ -1,0 +1,31 @@
+{% include 'header.html' %}
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
+        <!--% if pc.parent_link.parent_id!=0  %-->
+        <nav class="categories-nav">
+            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в {{ pc.parent_link.name }}</a>
+        </nav>
+        <!--% endif %-->
+    </div>
+</div>
+<div class="goods">
+    <div class="container">
+        {% for good in pc.goods %}
+        <div class="good">
+            <a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-link">
+                <img src="{{ good.photo }}" alt="{{ good.name }}" class="good-image"></a>
+            <div class="good-descr">
+                <a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-name">{{ good.name }}</a>
+                <p>{{ good.short_descr }}</p>
+            </div>
+            <div class="good-buy-container">
+                <span class="good-price" >{{ good.price }} руб.</span>
+                <button add-to-cart="{{ good.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.id_good }}'">Купить</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'footer.html' %}

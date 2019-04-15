@@ -1,0 +1,33 @@
+{% include 'header.html' %}
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
+        <!--% if pc.parent_link.parent_id!=0  %-->
+        <nav class="categories-nav">
+            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в {{ pc.parent_link.name }}</a>
+        </nav>
+        <!--% endif %-->
+    </div>
+</div>
+<div class="content">
+    <div class="container">
+        <div class="view-good">
+            <div class="view-good-up">
+                <img src="{{ pc.good.0.photo }}" alt="{{ pc.good.0.name }}" class="view-good-image">
+                <div class="view-good-buy-container">
+                    <h2>{{ pc.good.0.name }}</h2>
+                    <div class="view-good-buy">
+                        <span class="view-good-price">Цена: {{ pc.good.0.price }} руб.</span> <br>
+                        Количество: <input type="text" style="width: 40px;"><br>
+                        <button>Купить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="view-good-descr">
+                <p>{{ pc.good.0.descr }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
