@@ -1,3 +1,24 @@
 {% include 'header.html' %}
-Список заказов
+<div class="content">
+    <div class="container">
+        <h1>Заказы</h1>
+        <table>
+            <tr>
+                <th>Номер заказа</th>
+                <th>Дата заказа</th>
+                <th>Стоимость</th>
+                <th>Статус заказа</th>
+            </tr>
+            {% for order in pc.order_list %}
+            <tr>
+                <td>{{ order.id_order }}</td>
+                <td>{{ order.datetime_create }}</td>
+                <td><a href="index.php?path=order/view/{{ order.id_order }}" id-order="{{ order.id_order }}">{{ order.amount }} руб.</a></td>
+                <td>{{ order.order_status_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
 {% include 'footer.html' %}

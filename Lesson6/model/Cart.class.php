@@ -29,8 +29,9 @@ class Cart
         $varExchange = [];
         $varExchange = $this->good->getGood($id)[0];
 //        App::debug($varExchange);
-        if (isset($_SESSION['user_id'])) {
-            $count = Sql::getRow('SELECT * FROM `basket` WHERE `id_good`=?', [$id])['count'];
+        if (!empty($_SESSION['user_id'])) {
+            $count = Sql::getRow('SELECT * FROM `basket` WHERE `id_good`=? AND `is_in_order`=0 AND `id_order`=0', [$id])['count'];
+//            App::debug($count,'count');
             if (empty($count)) {
                 return Sql::insert('INSERT INTO `basket` (`id_user`,`id_good`,`price`) VALUE (?,?,?)', [$_SESSION['user_id'], $id, $varExchange['price']]);
             } else {
@@ -57,15 +58,16 @@ class Cart
         if (isset($_SESSION['user_id'])) {
             return Sql::delete('DELETE FROM `basket` WHERE `id_user`=? AND `id_good`=?', [$_SESSION['user_id'], $id]);
         } else {
-            foreach ($_SESSION['cart'] as $good) {
-                if ($_SESSION['cart'][$good]['id_good'] == $id) {
-                    unset($_SESSION['cart'][$good]);
+//            App::debug($_SESSION['cart'],'$_SESSION[cart]');
+            for ($i = 0; $i < count($_SESSION['cart']); $i++) {
+                if ($_SESSION['cart'][$i]['id_good'] == $id) {
+//                    App::debug($_SESSION['cart'][$i]['id_good'],'session[good-id]');
+                    unset($_SESSION['cart'][$i]);
                     return true;
                 }
             }
         }
     }
-
 
 
     // Переносим все данные корзины из сессии в БД
@@ -75,6 +77,7 @@ class Cart
         foreach ($_SESSION['cart'] as $good) {
             Sql::insert('INSERT INTO `basket` (`id_user`,`id_good`,`price`,`count`) VALUE (?,?,?,?)', [$_SESSION['user_id'], $good['id_good'], $good['price'], $good['count']]);
         }
+        $_SESSION['cart'] = null;
         return true;
     }
 
@@ -110,8 +113,9 @@ class Cart
         }
     }
 
-    public function updateGoodForOrder($id_order,$id_basket){
-        Sql::update('UPDATE `basket` SET `is_in_order`=1, `id_order`=? WHERE `id_basket`=?',[$id_basket,$id_order]);
+    public function updateGoodForOrder($id_order, $id_basket)
+    {
+        Sql::update('UPDATE `basket` SET `is_in_order`=1, `id_order`=? WHERE `id_basket`=?', [$id_order, $id_basket]);
 
     }
 }

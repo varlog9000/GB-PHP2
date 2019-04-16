@@ -4,42 +4,22 @@
         <h1>{{ pc.h1 }}</h1>
         <!--% if pc.parent_link.parent_id!=0  %-->
         <nav class="categories-nav">
-            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в {{ pc.parent_link.name }}</a>
+            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Назад</a>
         </nav>
         <!--% endif %-->
     </div>
 </div>
-<script>
-    $(function () {
-        $(".buy-button").click(function (e) {
-            // console.log(e);
-            e.preventDefault();
-            var _this = this;
-            var id = $(_this).attr('add-to-cart');
-            $.ajax({
-                type: 'GET',
-                url: 'index.php?path=cart/add/' + id,
-                dataType: 'text',
-                success: function (answer) {
-                    $("#cart-small").html(answer);
-                },
-                error: function (answer) {
-                    alert ("Ошибка " + answer);
-                }
-            })
-        })
-
-    })
-</script>
+<script src="js/buy-button.js"></script>
 <div class="goods">
     <div class="container">
         {% for good in pc.goods %}
         <div class="good">
-            <a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-link">
+            <div class="good-img-and-descr"><a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-link">
                 <img src="{{ good.photo }}" alt="{{ good.name }}" class="good-image"></a>
-            <div class="good-descr">
-                <a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-name">{{ good.name }}</a>
-                <p>{{ good.short_descr }}</p>
+                <div class="good-descr">
+                    <a href="index.php?path=catalog/good/{{ good.id_good }}/" class="good-name">{{ good.name }}</a>
+                    <p>{{ good.short_descr }}</p>
+                </div>
             </div>
             <div class="good-buy-container">
                 <span class="good-price">{{ good.price }} руб.</span>

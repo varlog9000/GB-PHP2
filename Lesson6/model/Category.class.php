@@ -12,7 +12,7 @@ class Category
     public function getCategories($rootCategory = 0)
     {
 
-        return Sql::getRows('SELECT * FROM `categories` WHERE `parent_id`=?', [$rootCategory]);
+        return Sql::getRows('SELECT * FROM `categories` WHERE `status`=1 AND `parent_id`=?', [$rootCategory]);
 
     }
 

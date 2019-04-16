@@ -12,10 +12,8 @@ class App
 
             // Отладка Вывод глобальных переменных
 
-//            echo "<br>REQUEST:";
-//            self::debug($_REQUEST);
-//            echo "SESSION:";
-//            self::debug($_SESSION);
+//            self::debug($_REQUEST,'REQUEST');
+//            self::debug($_SESSION,'SESSION');
         }
     }
 
@@ -66,9 +64,12 @@ class App
         }
     }
 
-    public function debug($param)
+    public function debug($param, $name = null)
     {
         echo "<pre>";
+        if ($name) {
+            echo "$name: ";
+        }
         print_r($param);
         echo "</pre>";
     }
