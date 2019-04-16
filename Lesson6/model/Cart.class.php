@@ -66,7 +66,9 @@ class Cart
         }
     }
 
-    // Запрос всего списка товаров в корзине
+
+
+    // Переносим все данные корзины из сессии в БД
 
     public function transferGoodsFromSessionToDb()
     {
@@ -76,8 +78,8 @@ class Cart
         return true;
     }
 
-    // Переносим все данные корзины из сессии в БД
 
+    // Запрос обновленной информации для отображения корзины вверху страницы.
     public function getParamForCartBlock()
     {
         $count = 0;
@@ -96,7 +98,7 @@ class Cart
 
     }
 
-    // Запрос обновленной информации для отображения корзины вверху страницы.
+    // Запрос всего списка товаров в корзине
 
     public function getGoodsListFromCart()
     {
@@ -106,5 +108,10 @@ class Cart
         } else {
             return $_SESSION['cart'];
         }
+    }
+
+    public function updateGoodForOrder($id_order,$id_basket){
+        Sql::update('UPDATE `basket` SET `is_in_order`=1, `id_order`=? WHERE `id_basket`=?',[$id_basket,$id_order]);
+
     }
 }

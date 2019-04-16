@@ -17,7 +17,8 @@ td, th {
 
 .container {
   display: flex;
-  width: 1000px; }
+  width: 1000px;
+  margin: 0 10px; }
 
 .header, .main-menu, .categories, .footer, .content {
   display: flex;
