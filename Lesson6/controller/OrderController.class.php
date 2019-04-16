@@ -26,7 +26,7 @@ class OrderController extends Controller
                 $goodsInCart = $this->cart->getGoodsListFromCart();
                 $countAndAmount = $this->cart->getParamForCartBlock();
                 if ($countAndAmount['count']>1){
-                    App::debug($goodsInCart, 'goodsInCart');
+//                    App::debug($goodsInCart, 'goodsInCart');
                     $id_order = $this->order->createOrder();
 //            App::debug($id_order, 'id_order');
                     for ($i = 0; $i < count($goodsInCart); $i++) {
