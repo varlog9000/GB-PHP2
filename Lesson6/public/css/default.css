@@ -113,6 +113,7 @@ td, th {
       background-color: rgba(0, 13, 122, 0.89); }
     .main-menu-item .item-link {
       display: inline;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       text-decoration: none;
       font-weight: bold; }
       .main-menu-item .item-link:hover {
@@ -171,6 +172,9 @@ td, th {
     border-bottom: transparent; }
   .good-descr {
     margin: 0 10px; }
+  .good-price {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold; }
   .good-name {
     display: block;
     margin: 3px 0;
@@ -202,8 +206,15 @@ td, th {
 .view-good-image {
   max-width: 300px;
   max-height: 300px; }
+.view-good-price {
+  width: 100%;
+  display: inline;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: right; }
 .view-good-buy {
-  margin-top: 20px; }
+  margin-top: 20px;
+  text-align: right; }
   .view-good-buy * {
     margin-top: 10px; }
   .view-good-buy button {
@@ -218,6 +229,7 @@ td, th {
   padding-bottom: 5px;
   background-color: rgba(0, 13, 122, 0.89);
   color: white;
+  font-weight: bold;
   border: transparent;
   border-radius: 5px; }
   .buy-button:hover {
