@@ -117,11 +117,15 @@ td, th
     border-radius: 10px 10px 0 0
     background-color: white
     color: rgba(0, 13, 122, 0.89)
+    &:hover
+      //color: rgba(255, 255, 255, 1)
+      background-color: rgba(0, 13, 122, 0.89)
     .item-link
       display: inline
-
       text-decoration: none
       font-weight: bold
+      &:hover
+        color: rgba(255, 255, 255, 1)
 
 
 
@@ -146,13 +150,21 @@ td, th
   &-image
     height: 150px
   &-name
-    display: block
+    display: inline
     text-decoration: none
-    text-underline: none
+
   &-link
     display: table-cell
     margin-top: 5px
     text-align: center
+    text-underline: none
+    text-decoration: none
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size: 15px
+    font-weight: bold
+    color: black
+    &:hover
+      color: darkred
     //justify-content: center
 
 .goods
@@ -179,6 +191,12 @@ td, th
     margin: 3px 0
     font-weight: bold
     text-decoration: none
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size: 16px
+    color: black
+    &:hover
+      color: darkred
+
   &-image
     max-height: 80px
     max-width: 80px
@@ -190,6 +208,7 @@ td, th
     flex-direction: column
     justify-content: space-around
     justify-items: center
+
   &-price
     text-align: center
 
@@ -207,8 +226,26 @@ td, th
       margin-top: 10px
     button
       width: 100%
+    &-container
+      h2
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+
   &-descr
     margin-top: 10px
+
+.buy-button
+  padding-top: 5px
+  padding-bottom: 5px
+  background-color: rgba(0, 13, 122, 0.89)
+  color: white
+  border: transparent
+  border-radius: 5px
+  &:hover
+    background-color: red
+  &:active
+    border: 1px solid #000
+    color: black
+    background-color: #fff
 
 
 

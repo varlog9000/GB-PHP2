@@ -109,10 +109,14 @@ td, th {
     border-radius: 10px 10px 0 0;
     background-color: white;
     color: rgba(0, 13, 122, 0.89); }
+    .main-menu-item:hover {
+      background-color: rgba(0, 13, 122, 0.89); }
     .main-menu-item .item-link {
       display: inline;
       text-decoration: none;
       font-weight: bold; }
+      .main-menu-item .item-link:hover {
+        color: white; }
 
 .categories {
   justify-content: space-around;
@@ -134,13 +138,20 @@ td, th {
   .category-image {
     height: 150px; }
   .category-name {
-    display: block;
-    text-decoration: none;
-    text-underline: none; }
+    display: inline;
+    text-decoration: none; }
   .category-link {
     display: table-cell;
     margin-top: 5px;
-    text-align: center; }
+    text-align: center;
+    text-underline: none;
+    text-decoration: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: black; }
+    .category-link:hover {
+      color: darkred; }
 
 .goods {
   display: flex;
@@ -164,7 +175,12 @@ td, th {
     display: block;
     margin: 3px 0;
     font-weight: bold;
-    text-decoration: none; }
+    text-decoration: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: black; }
+    .good-name:hover {
+      color: darkred; }
   .good-image {
     max-height: 80px;
     max-width: 80px;
@@ -192,8 +208,24 @@ td, th {
     margin-top: 10px; }
   .view-good-buy button {
     width: 100%; }
+  .view-good-buy-container h2 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .view-good-descr {
   margin-top: 10px; }
+
+.buy-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(0, 13, 122, 0.89);
+  color: white;
+  border: transparent;
+  border-radius: 5px; }
+  .buy-button:hover {
+    background-color: red; }
+  .buy-button:active {
+    border: 1px solid #000;
+    color: black;
+    background-color: #fff; }
 
 .footer {
   flex: 0 0 auto;

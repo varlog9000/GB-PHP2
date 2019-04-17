@@ -2,11 +2,11 @@
 <div class="content">
     <div class="container">
         <h1>{{ pc.h1 }}</h1>
-        <!--% if pc.parent_link.parent_id!=0  %-->
+        {% if pc.parent_link.parent_id != null %}
         <nav class="categories-nav">
             <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Назад</a>
         </nav>
-        <!--% endif %-->
+        {% endif %}
     </div>
 </div>
 <div class="categories">

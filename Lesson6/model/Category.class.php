@@ -21,6 +21,8 @@ class Category
 
     public function getParentCategoryName($parentId)
     {
-        return Sql::getRow('SELECT `name` FROM `categories` WHERE `id_category`=?', [$parentId])['name'];
+        $returnResult = Sql::getRow('SELECT `name` FROM `categories` WHERE `id_category`=?', [$parentId])['name'];
+//        App::debug($returnResult,'returnResult');
+        return $returnResult;
     }
 }
