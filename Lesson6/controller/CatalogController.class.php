@@ -87,12 +87,15 @@ class CatalogController extends Controller
 //        echo $data['id'];
         if ($id != 0) {
             $this->paramContainer['good'] = $this->goods->getGood($id);
-            $name = $this->category->getCategory($this->paramContainer['good']['id_category'])['name'];
-            $this->title .= " | $name";
-            $this->paramContainer['h1'] = $name;
+            $name = $this->category->getCategory($this->paramContainer['good'][0]['id_category'])['name'];
+            $nameGood=$this->paramContainer['good'][0]['name'];
+            $this->title .= " | $name | $nameGood";
+//            App::debug();
+//            $this->paramContainer['h1'] = $name;
         } else {
             $this->paramContainer['h1'] = 'Каталог товаров';
             $this->title .= ' | Каталог товаров';
+
 //            $this->paramContainer['parent_link']['status']=0;
         }
         $this->paramContainer['parent_link_good']['parent_id'] = $this->goods->getGood($id)[0]['id_category'];
