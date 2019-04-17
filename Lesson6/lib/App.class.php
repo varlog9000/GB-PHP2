@@ -6,12 +6,9 @@ class App
     {
         date_default_timezone_set('Europe/Moscow');
 //        db::getInstance()->Connect(Config::get('db_user'), Config::get('db_password'), Config::get('db_base'));
-
         if (php_sapi_name() !== 'cli' && isset($_SERVER) && isset($_GET)) {
             self::web(isset($_GET['path']) ? $_GET['path'] : '');
-
             // Отладка Вывод глобальных переменных
-
 //            self::debug($_REQUEST,'REQUEST');
 //            self::debug($_SESSION,'SESSION');
         }
@@ -42,7 +39,6 @@ class App
             $controllerName = ucfirst($_GET['page']) . 'Controller';//IndexController
             $methodName = isset($_GET['action']) ? $_GET['action'] : 'index';
             $controller = new $controllerName();
-
             $data = [
                 'content_data' => $controller->$methodName($_GET),
                 'title' => $controller->title,
@@ -55,8 +51,6 @@ class App
                 $loader = new Twig_Loader_Filesystem(Config::get('path_templates'));
                 $twig = new Twig_Environment($loader);
                 $template = $twig->loadTemplate($view);
-
-
                 echo $template->render($data);
             } else {
                 echo json_encode($data);
@@ -73,6 +67,4 @@ class App
         print_r($param);
         echo "</pre>";
     }
-
-
 }

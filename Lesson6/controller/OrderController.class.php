@@ -4,12 +4,11 @@ class OrderController extends Controller
 {
     public $order;
     public $view = 'order';
-
     public function __construct()
+
     {
         parent::__construct();
         $this->order = new Orders();
-
     }
 
     public function index($data)
@@ -32,7 +31,6 @@ class OrderController extends Controller
                     for ($i = 0; $i < count($goodsInCart); $i++) {
 //                App::debug($goodsInCart[$i]['id_basket'], 'id_basket');
 //                App::debug($goodsInCart[1]['id_basket'], 'id_basket[1]');
-
                         $this->cart->updateGoodForOrder($id_order, $goodsInCart[$i]['id_basket']);
                     }
                     $this->order->updateOrder($id_order, $_REQUEST['owner_name'], $_REQUEST['phone'], $_REQUEST['address'], $countAndAmount['amount']);
@@ -40,13 +38,10 @@ class OrderController extends Controller
                 }else{
                     header("location:index.php?path=catalog");
                 }
-//
             }
         }else{
             header("location:index.php?path=user");
         }
-
-
     }
 
     public function view($data)
@@ -58,6 +53,4 @@ class OrderController extends Controller
 //            App::debug($goodsInOrder,'$goodsInOrder=');
         }
     }
-
-
 }
