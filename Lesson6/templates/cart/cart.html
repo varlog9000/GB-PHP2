@@ -19,11 +19,17 @@
     {% set amount = good.price * good.count %}
     <td>{{ amount }}</td>
     <td><a deleteIdGood={{ good.id_good }} href="" class="delete-good-button">Удалить</a></td>
-</tr>
+
 
 {% set totalCount = totalCount + good.count  %}
 {% set totalAmount = totalAmount + amount  %}
-{% endfor %}
+
+</tr>
+    {% endfor %}
+{% if totalCount == 0 %}
+<tr><td colspan="6"><b>Я вся такая пустая, ну добавьте в меня что-нибудь :)</b></td></tr>
+{% endif %}
+
 <tr>
     <td colspan="3">Итого:</td>
     <td>{{ totalCount }}</td>
