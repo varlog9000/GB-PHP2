@@ -4,7 +4,7 @@
         <h1>{{ pc.h1 }}</h1>
         <!--% if pc.parent_link.parent_id!=0  %-->
         <nav class="categories-nav">
-            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в родительскую категорию</a>
+            <a href="index.php?path=catalog/{{ pc.parent_link_good.parent_id }}">Вернуться в родительскую категорию</a>
         </nav>
         <!--% endif %-->
     </div>

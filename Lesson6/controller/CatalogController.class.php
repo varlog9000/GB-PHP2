@@ -95,7 +95,8 @@ class CatalogController extends Controller
             $this->title .= ' | Каталог товаров';
 //            $this->paramContainer['parent_link']['status']=0;
         }
-        $this->paramContainer['parent_link']['parent_id'] = $this->goods->getGood($id)['id_category'];
+        $this->paramContainer['parent_link_good']['parent_id'] = $this->goods->getGood($id)[0]['id_category'];
+//        App::debug($this->goods->getGood($id)[0]['id_category'],'parent_link_good');
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
 
         return [];

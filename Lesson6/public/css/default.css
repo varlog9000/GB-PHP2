@@ -204,7 +204,6 @@ td, th {
   margin: 10px 0;
   justify-content: space-around; }
 .view-good-image {
-  max-width: 300px;
   max-height: 300px; }
 .view-good-price {
   width: 100%;
