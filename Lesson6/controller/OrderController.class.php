@@ -24,7 +24,8 @@ class OrderController extends Controller
             if (isset($_REQUEST['getOrder'])) {
                 $goodsInCart = $this->cart->getGoodsListFromCart();
                 $countAndAmount = $this->cart->getParamForCartBlock();
-                if ($countAndAmount['count']>1){
+//                App::debug($countAndAmount['count'],'$countAndAmount[count]');
+                if ($countAndAmount['count']>0){
 //                    App::debug($goodsInCart, 'goodsInCart');
                     $id_order = $this->order->createOrder();
 //            App::debug($id_order, 'id_order');
