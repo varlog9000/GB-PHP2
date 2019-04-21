@@ -27,6 +27,7 @@ class Sql
      */
     public static function getRows($sql, $args = [])
     {
+//        print_r( self::sql($sql, $args)->fetchAll());
         return self::sql($sql, $args)->fetchAll();
     }
 

@@ -15,7 +15,7 @@
             </tr>
             {% for order in pc.order_list %}
             <tr onclick="location:''" class="orders-row">
-                <td><a href="index.php?path=edit_order/{{ order.id_order }}">
+                <td><a href="index.php?path=admin/edit_order/{{ order.id_order }}">
                     {{ order.id_order }}</a></td>
                 <td>{{ order.user_name }}</td>
                 <td>{{ order.amount }} руб.</td>

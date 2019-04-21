@@ -15,7 +15,8 @@ html, body {
   flex: 1 0 auto; }
 
 table {
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 10px; }
 
 td, th {
   text-align: center;
@@ -44,17 +45,27 @@ td.even {
       width: 100%;
       display: block; }
 
-.login-form {
+.login-form, .edit-form {
   margin: 10px 0; }
-  .login-form input {
+  .login-form input, .login-form select, .edit-form input, .edit-form select {
     height: 30px;
     margin: 3px 0 3px 50px;
     padding: 0 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
-  .login-form-status {
+  .login-form-status, .edit-form-status {
     color: darkred; }
+
+.edit-form-row {
+  width: 400px;
+  display: flex;
+  justify-content: space-between; }
+.edit-form-button-container {
+  display: flex;
+  justify-content: flex-end; }
+  .edit-form-button-container input {
+    display: block; }
 
 .header {
   justify-content: center;

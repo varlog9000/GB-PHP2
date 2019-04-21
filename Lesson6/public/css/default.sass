@@ -16,6 +16,7 @@ html, body
 
 table
   width: 100%
+  margin-bottom: 10px
 td, th
   text-align: center
   border-style: solid
@@ -45,10 +46,10 @@ td.even
       width: 100%
       display: block
 
-.login-form
+.login-form, .edit-form
   margin: 10px 0
 
-  input
+  input, select
     height: 30px
     margin: 3px 0 3px 50px
     padding: 0  5px
@@ -58,6 +59,18 @@ td.even
   &-status
     color: darkred
 
+.edit-form
+  //margin-bottom: 10px
+  &-row
+    width: 400px
+    display: flex
+    justify-content: space-between
+  &-button-container
+    display: flex
+    justify-content: flex-end
+
+    input
+      display: block
 
 .header
   justify-content: center
