@@ -22,7 +22,7 @@ class Admin
 `users`.`user_name` as `user_name`,
 `orders`.`id_order` as `id_order`
  FROM `orders` INNER JOIN `order_status` ON `order_status`.`id_order_status`=`orders`.`id_order_status`
- INNER JOIN `users` ON `orders`.`id_user`=`users`.`id_user`', []);
+ INNER JOIN `users` ON `orders`.`id_user`=`users`.`id_user` ORDER BY `datetime_create` DESC', []);
     }
 
     public function getOrder($id)

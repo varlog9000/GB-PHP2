@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 20 2019 г., 19:47
+-- Время создания: Апр 22 2019 г., 00:13
 -- Версия сервера: 5.7.25
--- Версия PHP: 7.2.10
+-- Версия PHP: 7.1.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -58,7 +58,7 @@ INSERT INTO `basket` (`id_basket`, `id_user`, `id_good`, `count`, `price`, `is_i
 (30, 9, 11, 2, 750, 1, 27),
 (31, 9, 5, 1, 12000, 1, 29),
 (32, 9, 6, 1, 15000, 1, 29),
-(33, 9, 7, 110, 400, 1, 29),
+(33, 9, 7, 2, 400, 1, 29),
 (34, 9, 8, 20, 85, 1, 29),
 (35, 9, 9, 2, 350, 1, 29),
 (36, 9, 10, 2, 600, 1, 29),
@@ -74,8 +74,11 @@ INSERT INTO `basket` (`id_basket`, `id_user`, `id_good`, `count`, `price`, `is_i
 (61, 9, 11, 1, 750, 1, 34),
 (62, 9, 1, 1, 450, 1, 34),
 (63, 9, 3, 1, 1600, 1, 34),
-(64, 9, 7, 3, 400, 1, 34),
-(72, 11, 19, 1, 4500, 0, 0);
+(64, 9, 7, 2, 400, 1, 34),
+(72, 11, 19, 1, 4500, 0, 0),
+(73, 12, 1, 1, 450, 1, 35),
+(74, 12, 1, 1, 450, 1, 36),
+(75, 12, 7, 2, 400, 1, 36);
 
 -- --------------------------------------------------------
 
@@ -184,13 +187,15 @@ INSERT INTO `orders` (`id_order`, `id_user`, `amount`, `datetime_create`, `owner
 (24, 9, 85, '2019-04-16 14:13:06', 'Никита', '+79626844700', 'Кузьмолово', 1),
 (25, 9, 13600, '2019-04-16 15:04:51', 'Никита', '+79626844700', 'Кузьмолово', 1),
 (26, 9, 0, '2019-04-16 16:29:50', '', '', '', 1),
-(27, 9, 23000, '2019-04-16 16:39:29', 'Никита', '+79626844700', 'Кузьмолово', 1),
-(29, 9, 45020, '2019-04-16 16:52:08', 'Яна', '+79215927187', 'Хошимина', 1),
+(27, 9, 23000, '2019-04-16 16:39:29', 'Никита', '+79626844700', 'Кузьмолово', 3),
+(29, 9, 45020, '2019-04-16 16:52:08', 'Яна', '+79215927187', 'Хошимина', 4),
 (30, 11, 44000, '2019-04-16 17:00:21', '', '', '', 1),
-(31, 11, 11410, '2019-04-16 17:07:34', 'Яна', '+79215927187', 'Хошимина', 1),
+(31, 11, 11410, '2019-04-16 17:07:34', 'Яна+Никита', '+79215927187', 'Хошимина', 6),
 (32, 11, 0, '2019-04-16 17:15:58', '', '', '', 1),
 (33, 9, 400, '2019-04-16 23:44:39', 'Никита', '+79215927187', 'Хошимина', 1),
-(34, 9, 4000, '2019-04-17 10:38:16', 'Никита', '+79626844700', 'Кузьмолово', 1);
+(34, 9, 4000, '2019-04-17 10:38:16', 'Никита', '+79626844700', 'Кузьмолово', 1),
+(35, 12, 450, '2019-04-20 20:02:52', 'Яна', '+79215927187', 'Хошимина', 1),
+(36, 12, 1250, '2019-04-20 20:03:58', 'Янетта', '+79215927187', 'Хошимина', 1);
 
 -- --------------------------------------------------------
 
@@ -200,16 +205,21 @@ INSERT INTO `orders` (`id_order`, `id_user`, `amount`, `datetime_create`, `owner
 
 CREATE TABLE `order_status` (
   `id_order_status` int(11) NOT NULL,
-  `order_status_name` varchar(50) NOT NULL
+  `order_status_name` varchar(50) NOT NULL,
+  `sort` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `order_status`
 --
 
-INSERT INTO `order_status` (`id_order_status`, `order_status_name`) VALUES
-(1, 'Оформлен'),
-(2, 'Завершен');
+INSERT INTO `order_status` (`id_order_status`, `order_status_name`, `sort`) VALUES
+(1, 'Оформлен', 1),
+(2, 'Завершен', 5),
+(3, 'Подтвержден', 2),
+(4, 'Передан для самовывоза', 3),
+(5, 'Передан в доставку', 4),
+(6, 'Отменен', 6);
 
 -- --------------------------------------------------------
 
@@ -256,7 +266,8 @@ INSERT INTO `users` (`id_user`, `user_name`, `user_login`, `user_password`, `use
 (8, 'Валентина', 'vlt', '5b10d90161a21057df6b411bae1528c4378b73f38d223849ee9a19900343fe7a778cfa3dc57d9c174c163ace65369625', '2019-04-10 07:01:48'),
 (9, 'adm', 'adm', '46d32f3273b944711f375cddf006c90b202cb962ac59075b964b07152d234b7080177534a0c99a7e3645b52f2027a48b', '2019-04-10 08:11:43'),
 (10, 'vlt', 'vlt', '5b10d90161a21057df6b411bae1528c4202cb962ac59075b964b07152d234b704db7f2af642040109eab802746c7b7f4', '2019-04-10 20:47:44'),
-(11, 'Яна', 'yana', '1520b22b5d316b55b60b7780d8e1ec1e202cb962ac59075b964b07152d234b70f120b1fbce5e71f228b8764c574455da', '2019-04-13 21:51:46');
+(11, 'Яна', 'yana', '1520b22b5d316b55b60b7780d8e1ec1e202cb962ac59075b964b07152d234b70f120b1fbce5e71f228b8764c574455da', '2019-04-13 21:51:46'),
+(12, 'Янетта', '111', '866107b7d994185ec121a8d91a15d896698d51a19d8a121ce581499d7b70166896e79218965eb72c92a549dd5a330112', '2019-04-20 16:54:21');
 
 -- --------------------------------------------------------
 
@@ -344,7 +355,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
@@ -368,13 +379,13 @@ ALTER TABLE `goods_status`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT для таблицы `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `id_order_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_order_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `pages`
@@ -392,7 +403,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`
