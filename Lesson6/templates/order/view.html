@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
+        <a href="index.php?path=order">В список заказов</a>
+        <table>
+            <tr>
+                <th>№ п/п</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Стоимость</th>
+            </tr>
+            {% set number = 0  %}
+            {% set totalCount = 0  %}
+            {% set totalAmount = 0 %}
+            {% for good in pc.order %}
+            {% set number = number + 1 %}
+            <tr id="{{ good.id_basket }}">
+                <td>{{ number }}</td>
+                <td>{{ good.name }}</td>
+                <td>{{ good.price }}</td>
+                <td>{{ good.count }}</td>
+                {% set amount = good.price * good.count %}
+                <td>{{ amount }}</td>
+
+            </tr>
+
+            {% set totalCount = totalCount + good.count  %}
+            {% set totalAmount = totalAmount + amount  %}
+            {% endfor %}
+            <tr>
+                <td colspan="3">Итого:</td>
+                <td>{{ totalCount }}</td>
+                <td>{{ totalAmount }}</td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% include 'footer.html' %}

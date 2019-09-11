@@ -1,0 +1,15 @@
+<div class="main-menu">
+    <ul class="container">
+        <nav class="main-menu-items">
+            <li class="main-menu-item"><a href="index.php" class="item-link">Главная</a></li>
+            <li class="main-menu-item"><a href="index.php?path=catalog" class="item-link">Магазин</a></li>
+            {% if pc.id_user > 0 %}
+            <li class="main-menu-item"><a href="index.php?path=user" class="item-link">Личный кабинет</a> <a href="index.php?path=user/logout" class="item-link">(Выход)</a></li>
+             {% endif %}
+            {% if pc.id_user < 1 %}
+            <li class="main-menu-item"><a href="index.php?path=user" class="item-link">Авторизация</a></li>
+            {% endif %}
+
+        </nav>
+    </ul>
+</div>

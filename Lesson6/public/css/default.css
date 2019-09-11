@@ -6,8 +6,17 @@
 html, body {
   height: 100%; }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+
+.inContent {
+  flex: 1 0 auto; }
+
 table {
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 10px; }
 
 td, th {
   text-align: center;
@@ -15,9 +24,13 @@ td, th {
   border-width: 0 1px 1px 0;
   border-color: black; }
 
+td.even {
+  background-color: #cccccc; }
+
 .container {
   display: flex;
-  width: 1000px; }
+  width: 1000px;
+  margin: 0 10px; }
 
 .header, .main-menu, .categories, .footer, .content {
   display: flex;
@@ -32,17 +45,27 @@ td, th {
       width: 100%;
       display: block; }
 
-.login-form {
+.login-form, .edit-form {
   margin: 10px 0; }
-  .login-form input {
+  .login-form input, .login-form select, .edit-form input, .edit-form select {
     height: 30px;
     margin: 3px 0 3px 50px;
     padding: 0 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }
-  .login-form-status {
+  .login-form-status, .edit-form-status {
     color: darkred; }
+
+.edit-form-row {
+  width: 400px;
+  display: flex;
+  justify-content: space-between; }
+.edit-form-button-container {
+  display: flex;
+  justify-content: flex-end; }
+  .edit-form-button-container input {
+    display: block; }
 
 .header {
   justify-content: center;
@@ -92,18 +115,23 @@ td, th {
   .main-menu-item {
     list-style-type: none;
     margin-right: 20px;
-    border-bottom: transparent; }
-    .main-menu-item a {
-      display: block;
-      padding-top: 7px;
-      padding-right: 7px;
-      padding-left: 7px;
-      padding-bottom: 3px;
-      border-radius: 10px 10px 0 0;
+    border-bottom: transparent;
+    padding-top: 7px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 3px;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+    color: rgba(0, 13, 122, 0.89); }
+    .main-menu-item:hover {
+      background-color: rgba(0, 13, 122, 0.89); }
+    .main-menu-item .item-link {
+      display: inline;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       text-decoration: none;
-      font-weight: bold;
-      background-color: white;
-      color: rgba(0, 13, 122, 0.89); }
+      font-weight: bold; }
+      .main-menu-item .item-link:hover {
+        color: white; }
 
 .categories {
   justify-content: space-around;
@@ -125,13 +153,20 @@ td, th {
   .category-image {
     height: 150px; }
   .category-name {
-    display: block;
-    text-decoration: none;
-    text-underline: none; }
+    display: inline;
+    text-decoration: none; }
   .category-link {
     display: table-cell;
     margin-top: 5px;
-    text-align: center; }
+    text-align: center;
+    text-underline: none;
+    text-decoration: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: black; }
+    .category-link:hover {
+      color: darkred; }
 
 .goods {
   display: flex;
@@ -142,17 +177,28 @@ td, th {
 
 .good {
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #000;
   padding: 5px; }
+  .good-img-and-descr {
+    display: flex; }
   .good:last-child {
     border-bottom: transparent; }
   .good-descr {
     margin: 0 10px; }
+  .good-price {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold; }
   .good-name {
     display: block;
     margin: 3px 0;
     font-weight: bold;
-    text-decoration: none; }
+    text-decoration: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: black; }
+    .good-name:hover {
+      color: darkred; }
   .good-image {
     max-height: 80px;
     max-width: 80px;
@@ -172,18 +218,45 @@ td, th {
   margin: 10px 0;
   justify-content: space-around; }
 .view-good-image {
-  max-width: 300px;
   max-height: 300px; }
+.view-good-price {
+  width: 100%;
+  display: inline;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-align: right; }
 .view-good-buy {
-  margin-top: 20px; }
+  margin-top: 20px;
+  text-align: right; }
   .view-good-buy * {
     margin-top: 10px; }
   .view-good-buy button {
     width: 100%; }
+  .view-good-buy-container h2 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .view-good-descr {
   margin-top: 10px; }
 
+.buy-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(0, 13, 122, 0.89);
+  color: white;
+  font-weight: bold;
+  border: transparent;
+  border-radius: 5px; }
+  .buy-button:hover {
+    background-color: red; }
+  .buy-button:active {
+    border: 1px solid #000;
+    color: black;
+    background-color: #fff; }
+
+.orders-row:hover {
+  background-color: #999999; }
+
 .footer {
+  flex: 0 0 auto;
   height: 100px;
   margin-top: 20px;
   justify-content: center;

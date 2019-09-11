@@ -29,10 +29,17 @@
             })
         })
     </script>
-    <div class="container"><h1>{{ pc.h1 }}</h1>
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
         <table id="cart">
             {% include 'cart/cart.html' %}
         </table>
+        <form action="index.php?path=order/add" method="post" class="login-form">
+            <input type="text" name="owner_name" placeholder="Имя получателя заказа">
+            <input type="text" name="phone" placeholder="Контактный телефон">
+            <input type="text" name="address" placeholder="Адрес доставки" style="width: 300px;">
+            <input type="submit" value="Оформить заказ" name="getOrder">
+        </form>
     </div>
 </div>
 

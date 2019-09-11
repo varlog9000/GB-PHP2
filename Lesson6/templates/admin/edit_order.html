@@ -1,0 +1,66 @@
+{% include 'header.html' %}
+
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }} №{{ pc.order.id_order }}, пользователь: {{ pc.order.user_name}}</h1>
+        <form action="" method="post" class="edit-form">
+            <div class="edit-form-row"><p>Имя получателя заказа:</p> <input type="text" name="owner_name"
+                                                                            value="{{ pc.order.owner_name }}"></div>
+            <div class="edit-form-row"><p>Телефон получателя:</p> <input type="text" name="phone"
+                                                                         value="{{ pc.order.phone }}"></div>
+            <div class="edit-form-row"><p>Адрес доставки:</p> <input type="text" name="address"
+                                                                     value="{{ pc.order.address }}"></div>
+            <div class="edit-form-row"><p>Статус заказа:</p> <select name="id_order_status" id="">
+                {% for option in pc.order_status_list %}
+                {% if pc.order.id_order_status == option.id %}
+                <option selected value="{{ option.id }}">{{ option.name }}</option>
+                {% else %}
+                <option value="{{ option.id }}">{{ option.name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select></div>
+            <h2>Состав заказа</h2>
+            <table>
+                <tr>
+                    <th>№ п/п</th>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Стоимость</th>
+                </tr>
+                {% set number = 0 %}
+                {% set totalCount = 0 %}
+                {% set totalAmount = 0 %}
+                {% for good in pc.order_goods %}
+                {% set number = number + 1 %}
+                <tr id="{{ good.id_basket }}">
+                    <td>{{ number }}</td>
+                    <td>{{ good.name }}</td>
+                    <td>{{ good.price }}</td>
+                    <td>{{ good.count }}</td>
+                    {% set amount = good.price * good.count %}
+                    <td>{{ amount }}</td>
+
+                </tr>
+
+                {% set totalCount = totalCount + good.count %}
+                {% set totalAmount = totalAmount + amount %}
+                {% endfor %}
+                <tr>
+                    <td colspan="3">Итого:</td>
+                    <td>{{ totalCount }}</td>
+                    <td>{{ totalAmount }}</td>
+
+                </tr>
+            </table>
+            <div class="edit-form-button-container">
+                <input type="submit" name="update" value="Обновить">
+                <input type="submit" name="update-and-close" value="Обновить и закрыть">
+                <input type="submit" name="close" value="Закрыть без сохранения">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}

@@ -1,0 +1,32 @@
+{% include 'header.html' %}
+
+<div class="content">
+    <div class="container">
+        <h1>{{ pc.h1 }}</h1>
+        <table class="orders">
+            <tr>
+                <th>№ заказа</th>
+                <th>Пользователь</th>
+                <th>Сумма заказа</th>
+                <th>Имя получателя</th>
+                <th>Адрес</th>
+                <th>Телефон получателя</th>
+                <th>Статус заказа</th>
+            </tr>
+            {% for order in pc.order_list %}
+            <tr onclick="location:''" class="orders-row">
+                <td><a href="index.php?path=admin/edit_order/{{ order.id_order }}">
+                    {{ order.id_order }}</a></td>
+                <td>{{ order.user_name }}</td>
+                <td>{{ order.amount }} руб.</td>
+                <td>{{ order.owner_name }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.phone }}</td>
+                <td>{{ order.order_status_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% include 'footer.html' %}

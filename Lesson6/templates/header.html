@@ -9,6 +9,8 @@
 </head>
 
 <body>
+<div class="wrapper">
+    <div class="inContent">
 <div class="header">
     <div class="container">
         <a href="index.php" class="header-logo-container"><img src="images/logo.png" alt="ПожИнтер" class="header-logo"></a>
@@ -19,14 +21,6 @@
     </div>
 </div>
 
-<div class="main-menu">
-    <ul class="container">
-        <nav class="main-menu-items">
-            <li class="main-menu-item"><a href="index.php?path=catalog">Магазин</a></li>
-            <li class="main-menu-item"><a href="index.php?path=user">Личный кабинет</a></li>
-            <li class="main-menu-item"><a href="index.php?path=user/logout">Выйти из личного кабинета</a></li>
-        </nav>
-    </ul>
-</div>
+{% include 'main-menu.html' %}
 
 

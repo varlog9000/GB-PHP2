@@ -1,100 +1,65 @@
 <?php
+
 class AdminController extends Controller
 {
-    
-    protected $controls = [
-        'pages' => 'Page',
-        'orders' => 'Order',
-        'categories' => 'Category',
-        'goods' => 'Good'
-    ];
 
-    public $title = 'admin';
-    
+    public $view = 'admin';
+    public $category;
+    public $goods;
+//    public $cart;
+    public $orders;
+    public $statusMessage;
+    public $adminControl;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->title .= ' | Админка';
+        $this->adminControl = new Admin();
+        $this->orders = new Orders();
+
+    }
+
     public function index($data)
     {
-        return ['controls' => $this->controls];
+        $this->paramContainer['h1'] = 'Админка';
+
     }
 
-    public function control($data)
+    public function order_list($data)
     {
-        // Сохранение
-        $actionId = $this->getActionId($data);
-        if ($actionId['action'] === 'save') {
-            $fields = [];
-
-            foreach ($_POST as $key => $value) {
-                $field = explode('_', $key, 2);
-                if ($field[0] == $actionId['id']) {
-                    $fields[$field[1]] = $value;
-                }
-            }
-        }
-
-        if ($actionId['action'] === 'create') {
-            $fields = [];
-            foreach ($_POST as $key => $value) {
-                if (substr($key, 0, 4) == 'new_') {
-                    $fields[str_replace('new_', '', $key)] = $value;
-                }
-            }
-        }
-
-        switch($actionId['action']) {
-            case 'create':
-                $query = 'INSERT INTO ' . $data['id'] . ' ';
-                $keys = [];
-                $values = [];
-                foreach ($fields as $key => $value) {
-                    $keys[] = $key;
-                    $values[] = '"' . $value . '"';
-                }
-
-                $query .= ' (' . implode(',', $keys) . ') VALUES ( ' . implode(',', $values) . ')';
-                db::getInstance()->Query($query);
-                break;
-            case 'save':
-                $query = 'UPDATE ' . $data['id'] . ' SET ';
-                foreach ($fields as $field => $value) {
-                    $query .= $field . ' = "' . $value . '",';
-                }
-                $query = substr($query, 0, -1) . ' WHERE id = :id';
-
-                db::getInstance()->Query($query, ['id' => $actionId['id']]);
-                break;
-            case 'delete':
-                db::getInstance()->Query('UPDATE ' . $data['id'] . ' SET status=:status WHERE id = :id', ['id' => $actionId['id'], 'status' => Status::Deleted]);
-                break;
-        }
-        $fields = db::getInstance()->Select('desc ' . $data['id']);
-        $_items = db::getInstance()->Select('select * from ' . $data['id']);
-        $items = [];
-        foreach ($_items as $item) {
-            $tmp = new $this->controls[$data['id']]($item);
-            $items[] = (array)$tmp;
-        }
-
-        return ['name' => $data['id'],'fields' => $fields, 'items' => $items];
+        $this->paramContainer['h1'] = 'Заказы';
+        $this->title .= ' | ' . $this->paramContainer['h1'];
+        $this->paramContainer['order_list'] = $this->adminControl->getAllOrderList();
     }
 
-    protected function getActionId($data)
+    public function edit_order($data)
     {
-        foreach ($_POST as $key => $value) {
-            if (strpos($key, '__save_') === 0) {
-                $id = explode('__save_', $key)[1];
-                $action = 'save';
-                break;
+        $this->paramContainer['h1'] = 'Заказ';
+        $this->title .= ' | ' . $this->paramContainer['h1'];
+
+        if (isset($_GET['id'])) {
+            if (isset($_REQUEST['update']) || isset($_REQUEST['update-and-close'])) {
+//                App::debug($_REQUEST, 'Request');
+                $this->adminControl->updateOrder($_GET['id'], $_REQUEST['owner_name'], $_REQUEST['phone'], $_REQUEST['address'], $_REQUEST['id_order_status']);
+//                print_r($_REQUEST['owner_name']);
+                if (isset($_REQUEST['update-and-close'])) {
+                    header("location:index.php?path=admin/order_list");
+                }
+            } elseif (isset($_REQUEST['close'])) {
+                header("location:index.php?path=admin/order_list");
             }
-            if (strpos($key, '__delete_') === 0) {
-                $id = explode('__delete_', $key)[1];
-                $action = 'delete';
-                break;
-            }
-            if (strpos($key, '__create') === 0) {
-                $action = 'create';
-                $id = 0;
-            }
+            $this->paramContainer['order_status_list'] = $this->adminControl->getDropDownList('order_status', 'id_order_status', 'order_status_name');
+//        $this->paramContainer['order_status_list'] = $this->adminControl->getDropDownList('order_status');
+            $this->paramContainer['order'] = $this->adminControl->getOrder($_GET['id']);
+//      App::debug($this->paramContainer['order'],'$this->paramContainer[order]');
+            $this->paramContainer['order_goods'] = $this->adminControl->getOrderGoods($_GET['id']);
+//        App::debug($this->paramContainer['order_goods'],'$this->paramContainer[order_goods]');
+
+        } else {
+            header("location:index.php?path=admin/order_list");
         }
-        return ['id' => $id, 'action' => $action];
     }
+
 }

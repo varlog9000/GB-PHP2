@@ -41,6 +41,7 @@ class CatalogController extends Controller
 //            $this->paramContainer['parent_link']['status']=0;
         }
         $this->paramContainer['parent_link']['parent_id'] = $this->category->getCategory($id)['parent_id'];
+//        App::debug($this->paramContainer['parent_link']['parent_id'],'parentId');
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
 
         $this->paramContainer['categories'] = $this->category->getCategories($id);
@@ -86,15 +87,19 @@ class CatalogController extends Controller
 //        echo $data['id'];
         if ($id != 0) {
             $this->paramContainer['good'] = $this->goods->getGood($id);
-            $name = $this->category->getCategory($this->paramContainer['good']['id_category'])['name'];
-            $this->title .= " | $name";
-            $this->paramContainer['h1'] = $name;
+            $name = $this->category->getCategory($this->paramContainer['good'][0]['id_category'])['name'];
+            $nameGood=$this->paramContainer['good'][0]['name'];
+            $this->title .= " | $name | $nameGood";
+//            App::debug();
+//            $this->paramContainer['h1'] = $name;
         } else {
             $this->paramContainer['h1'] = 'Каталог товаров';
             $this->title .= ' | Каталог товаров';
+
 //            $this->paramContainer['parent_link']['status']=0;
         }
-        $this->paramContainer['parent_link']['parent_id'] = $this->goods->getGood($id)['id_category'];
+        $this->paramContainer['parent_link_good']['parent_id'] = $this->goods->getGood($id)[0]['id_category'];
+//        App::debug($this->goods->getGood($id)[0]['id_category'],'parent_link_good');
         $this->paramContainer['parent_link']['name'] = $this->category->getParentCategoryName($this->paramContainer['parent_link']['parent_id']);
 
         return [];

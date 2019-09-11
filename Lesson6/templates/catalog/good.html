@@ -4,11 +4,12 @@
         <h1>{{ pc.h1 }}</h1>
         <!--% if pc.parent_link.parent_id!=0  %-->
         <nav class="categories-nav">
-            <a href="index.php?path=catalog/{{ pc.parent_link.parent_id}}">Вернуться в {{ pc.parent_link.name }}</a>
+            <a href="index.php?path=catalog/{{ pc.parent_link_good.parent_id }}">Вернуться в родительскую категорию</a>
         </nav>
         <!--% endif %-->
     </div>
 </div>
+<script src="js/buy-button.js"></script>
 <div class="content">
     <div class="container">
         <div class="view-good">
@@ -18,8 +19,8 @@
                     <h2>{{ pc.good.0.name }}</h2>
                     <div class="view-good-buy">
                         <span class="view-good-price">Цена: {{ pc.good.0.price }} руб.</span> <br>
-                        Количество: <input type="text" style="width: 40px;"><br>
-                        <button add-to-cart="{{ good.0.id_good }}" class="buy-button" onclick="location.href='index.php?path=cart/add/{{ good.0.id_good }}&asAjax'">Купить</button>
+                        <!--Количество: <input type="text" style="width: 40px;"><br>-->
+                        <button add-to-cart="{{ pc.good.0.id_good }}" class="buy-button">Купить</button>
                     </div>
                 </div>
             </div>
